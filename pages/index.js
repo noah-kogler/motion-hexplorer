@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import styled, { createGlobalStyle } from 'styled-components';
-import Hexagon from "../components/hexagon";
+import SkillMap from "../components/skill-map";
 
 export default () => (
   <div>
@@ -9,9 +9,9 @@ export default () => (
     </Head>
     <GlobalStyle />
 
-    <Title>My next.js page</Title>
+    <Title>Skill Map</Title>
 
-    <Hexagon left={50} top={10}/>
+    <SkillMap />
   </div>
 );
 
@@ -19,7 +19,7 @@ const GlobalStyle = createGlobalStyle`
   body {
     width: 100%;
   }
-`
+`;
 
 const Title = styled.h1`
   font-family: sans-serif;
