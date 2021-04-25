@@ -5,6 +5,7 @@ export default function HexagonSvg({center, padding, containerSideLength, color,
   const sideLength = containerSideLength - padding;
   const halfHeight = hexHalfHeight(sideLength);
   const halfSide = sideLength / 2;
+  const width = 2 * containerSideLength;
   const points = [
     { x: center.x - halfSide, y: center.y - halfHeight }, // topLeft
     { x: center.x + halfSide, y: center.y - halfHeight }, // topRight
@@ -17,8 +18,13 @@ export default function HexagonSvg({center, padding, containerSideLength, color,
   return (
     <Svg
       xmlns="http://www.w3.org/2000/svg"
-      viewBox={"0 0 " + (2 * containerSideLength) + " " + (2 * hexHalfHeight(containerSideLength))}>
-      <Polygon points={points.map(({x, y}) => x + ',' + y).join(' ')} color={color} hoverColor={hoverColor} />
+      viewBox={"0 0 " + width + " " + (2 * hexHalfHeight(containerSideLength))}>
+      <Polygon
+        points={points.map(({x, y}) => x + ',' + y).join(' ')}
+        strokeColor={color}
+        strokeHoverColor={hoverColor}/>
+      <text x="50%" y="25%" dominantBaseline="middle" textAnchor="middle">Hello</text>
+      <image x="35%" y="40%" width="30%" xlinkHref="/martial-arts.svg" />
     </Svg>
   );
 }
@@ -28,16 +34,18 @@ const Svg = styled.svg`
   height: 100%;
 `;
 
-const animateHoverColor = (color, hoverColor) => keyframes`
- 0% { fill: ${color}; }
- 100% { fill: ${hoverColor}; }
+const animateHoverColor = (strokeColor, strokeHoverColor) => keyframes`
+ 0% { stroke: ${strokeColor}; }
+ 100% { stroke: ${strokeHoverColor}; }
 `;
 
 const Polygon = styled.polygon`
-  fill: ${props => props.color};
+  stroke: ${props => props.strokeColor};
+  stroke-width: 6;
+  fill: white;
   &:hover {
-    animation-name: ${props => animateHoverColor(props.color, props.hoverColor)};
+    animation-name: ${props => animateHoverColor(props.strokeColor, props.strokeHoverColor)};
     animation-duration: .5s;
-    fill: ${props => props.hoverColor};
+    stroke: ${props => props.strokeHoverColor};
   }
 `;

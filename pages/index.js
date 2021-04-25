@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import styled, { createGlobalStyle } from 'styled-components';
 import SkillMap from "../components/skill-map";
+import Credits from "../components/credits";
 
 export default () => (
   <div>
@@ -12,6 +13,8 @@ export default () => (
     <Title>Skill Map</Title>
 
     <SkillMap />
+
+    <Credits />
   </div>
 );
 
