@@ -1,7 +1,8 @@
 import { hexHalfHeight } from "../../tools/geometry";
 import styled, { keyframes } from "styled-components";
 
-export default function HexagonSvg({center, sideLength}) {
+export default function HexagonSvg({center, padding, containerSideLength}) {
+  const sideLength = containerSideLength - padding;
   const halfHeight = hexHalfHeight(sideLength);
   const halfSide = sideLength / 2;
   const points = [
@@ -14,8 +15,10 @@ export default function HexagonSvg({center, sideLength}) {
   ];
 
   return (
-    <Svg xmlns="http://www.w3.org/2000/svg" viewBox={"0 0 " + (2 * sideLength) + " " + (2 * halfHeight)}>
-      <SvgHex points={points.map(({x, y}) => x + ',' + y).join(' ')}/>
+    <Svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox={"0 0 " + (2 * containerSideLength) + " " + (2 * hexHalfHeight(containerSideLength))}>
+      <Polygon points={points.map(({x, y}) => x + ',' + y).join(' ')}/>
     </Svg>
   );
 }
@@ -30,7 +33,7 @@ const HoverColorAnimation = keyframes`
  100% { fill: black; }
 `;
 
-const SvgHex = styled.polygon`
+const Polygon = styled.polygon`
   fill: grey;
   &:hover {
     animation-name: ${HoverColorAnimation};

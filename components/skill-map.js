@@ -11,12 +11,13 @@ export default function SkillMap() {
     setWidth(ref.current.clientWidth);
   });
 
+  const padding = 20;
   const sideLength = 100;
   const central = {x: width / 2, y: 300 };
   return (
     <Container ref={ref}>
-      <Hexagon center={central} sideLength={sideLength} />
-      <Hexagon center={{x: central.x - 3 * sideLength / 2, y: central.y - hexHalfHeight(sideLength) }} sideLength={sideLength} />
+      <Hexagon center={central} sideLength={sideLength} padding={padding}/>
+      <Hexagon center={{x: central.x - 3 * sideLength / 2, y: central.y - hexHalfHeight(sideLength) }} sideLength={sideLength}  padding={padding}/>
     </Container>
   );
 }
