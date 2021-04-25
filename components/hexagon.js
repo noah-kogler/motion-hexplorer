@@ -3,7 +3,7 @@ import { useState } from "react";
 import HexagonSvg from "./svg/hexagon";
 import { hexHalfHeight } from "../tools/geometry";
 
-export default function Hexagon ({ sideLength, center, padding }) {
+export default function Hexagon ({ sideLength, center, ...svgProps }) {
   const [pressed, setPressed] = useState(false);
 
   const togglePressed = () => { setPressed(!pressed); };
@@ -21,7 +21,7 @@ export default function Hexagon ({ sideLength, center, padding }) {
       pressed={pressed}
       onMouseDown={togglePressed}
       onMouseUp={togglePressed}>
-      <HexagonSvg center={{x: sideLength, y: halfHeight}} containerSideLength={sideLength} padding={padding}/>
+      <HexagonSvg center={{x: sideLength, y: halfHeight}} containerSideLength={sideLength} {...svgProps} />
     </Container>
   );
 }
