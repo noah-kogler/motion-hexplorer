@@ -1,6 +1,7 @@
 import Hexagon from "./hexagon";
 import styled from "styled-components";
 import { useEffect, useRef, useState } from "react";
+import { hexHalfHeight } from "../tools/geometry";
 
 export default function SkillMap() {
   const [width, setWidth] = useState(undefined)
@@ -10,14 +11,12 @@ export default function SkillMap() {
     setWidth(ref.current.clientWidth);
   });
 
-  const hexSize = 200;
-  const center = width / 2;
-
+  const sideLength = 100;
+  const central = {x: width / 2, y: 300 };
   return (
     <Container ref={ref}>
-      <Hexagon size={200} left={center - hexSize} top={95}/>
-      <Hexagon size={200} left={center - 35} top={0}/>
-      <Hexagon size={200} left={center - 35} top={190}/>
+      <Hexagon center={central} sideLength={sideLength} />
+      <Hexagon center={{x: central.x - 3 * sideLength / 2, y: central.y - hexHalfHeight(sideLength) }} sideLength={sideLength} />
     </Container>
   );
 }
