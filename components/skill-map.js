@@ -1,21 +1,26 @@
 import Hexagon from "./hexagon";
 import styled from "styled-components";
 import { useEffect, useRef, useState } from "react";
-import { hexHalfHeight } from "../tools/geometry";
+import { hexHalfHeight, zoom } from "../tools/geometry";
 
 export default function SkillMap() {
-  const [width, setWidth] = useState(undefined)
+  const [width, setWidth] = useState(undefined);
+  const [sideLength, setSideLength] = useState(100);
+
   const ref = useRef();
 
   useEffect(() => {
     setWidth(ref.current.clientWidth);
   });
 
-  const padding = 10;
-  const sideLength = 100;
-  const halfHeight = hexHalfHeight(sideLength);
+  function onWheel(event) {
+    event.preventDefault();
+    setSideLength(zoom(sideLength, 20, 200, event.deltaY * -0.05));
+  }
 
-  const central = {x: width / 2, y: 300 };
+  const padding = sideLength / 10;
+  const halfHeight = hexHalfHeight(sideLength);
+  const central = {x: width / 2, y: 3 * sideLength };
   const topLeft = {x: central.x - 3 * sideLength / 2, y: central.y - halfHeight };
   const top = {x: central.x, y: central.y - 2 * halfHeight };
   const topRight = {x: central.x + 3 * sideLength / 2, y: central.y - halfHeight };
@@ -24,7 +29,7 @@ export default function SkillMap() {
   const bottomLeft = {x: central.x - 3 * sideLength / 2, y: central.y + halfHeight };
 
   return (
-    <Container ref={ref}>
+    <Container ref={ref} onWheel={onWheel}>
       <Hexagon center={central} sideLength={sideLength} padding={padding} color="#d1625a" hoverColor="#9e4a44" />
       <Hexagon center={topLeft} sideLength={sideLength}  padding={padding} color="#dbc51d" hoverColor="#b09e15"/>
       <Hexagon center={top} sideLength={sideLength}  padding={padding} color="#25b015" hoverColor="#1c8a0f"/>

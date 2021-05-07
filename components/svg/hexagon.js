@@ -45,7 +45,7 @@ const Polygon = styled.polygon`
   fill: white;
   &:hover {
     animation-name: ${props => animateHoverColor(props.strokeColor, props.strokeHoverColor)};
-    animation-duration: .5s;
+    animation-duration: .25s;
     stroke: ${props => props.strokeHoverColor};
   }
 `;
