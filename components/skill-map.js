@@ -1,31 +1,25 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import Hexagon from "./hexagon";
 import styled from "styled-components";
-import { hexHalfHeight, zoom } from "../tools/geometry";
+import { hexHalfHeight } from "../tools/geometry";
 import Hammer from 'react-hammerjs';
+import useWindowSize from "../hooks/window-size";
 
 export default function SkillMap() {
-  const [width, setWidth] = useState(undefined);
   const [sideLength, setSideLength] = useState(100);
   const [testText, setTestText] = useState("HELLO");
-
-  const ref = useRef();
-
-  useEffect(() => {
-    if (ref && ref.current) {
-      setWidth(ref.current.clientWidth);
-    }
-  });
+  const {width} = useWindowSize();
 
   function onWheel(event) {
     event.preventDefault();
     setTestText("onWheel - event.deltaY * -0.05:" + (event.deltaY * -0.05));
-    setSideLength(zoom(sideLength, 20, 200, event.deltaY * -0.05));
+    setSideLength(Math.min(Math.max(40, sideLength + event.deltaY * -0.05), 400));
   }
 
   function onPinch(event) {
+    event.preventDefault();
     setTestText("onPinch - event.scale:" + event.scale);
-    setSideLength(zoom(sideLength, 20, 200, event.scale));
+    setSideLength(Math.min(Math.max(40, sideLength * event.scale), 400));
   }
 
   const padding = sideLength / 10;
@@ -39,7 +33,7 @@ export default function SkillMap() {
   const bottomLeft = {x: central.x - 3 * sideLength / 2, y: central.y + halfHeight };
 
   return (
-    <Container ref={ref} onWheel={onWheel}>
+    <Container onWheel={onWheel} width={width}>
       <Hammer onPinch={onPinch} options={{recognizers: {pinch: { enable: true }}}}>
         <div>
           <Hexagon center={central} sideLength={sideLength} padding={padding} color="#d1625a" hoverColor="#9e4a44" />
@@ -57,6 +51,8 @@ export default function SkillMap() {
 }
 
 const Container = styled.div`
+  border: 2px solid red;
   position: relative;
-  width: 100%;
+  overflow: visible;
+  width: ${props => props.width}px;
 `;
