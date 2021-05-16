@@ -1,7 +1,8 @@
 import { hexHalfHeight } from "../../tools/geometry";
 import styled, { keyframes } from "styled-components";
 
-export default function HexagonSvg({center, padding, containerSideLength, color, hoverColor, scale}) {
+export default function HexagonSvg({center, containerSideLength, color, hoverColor, scale}) {
+  const padding = containerSideLength / 10;
   const sideLength = containerSideLength - padding;
   const halfHeight = hexHalfHeight(sideLength);
   const halfSide = sideLength / 2;
