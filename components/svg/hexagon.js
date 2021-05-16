@@ -1,7 +1,7 @@
 import { hexHalfHeight } from "../../tools/geometry";
 import styled, { keyframes } from "styled-components";
 
-export default function HexagonSvg({center, padding, containerSideLength, color, hoverColor}) {
+export default function HexagonSvg({center, padding, containerSideLength, color, hoverColor, scale}) {
   const sideLength = containerSideLength - padding;
   const halfHeight = hexHalfHeight(sideLength);
   const halfSide = sideLength / 2;
@@ -15,6 +15,21 @@ export default function HexagonSvg({center, padding, containerSideLength, color,
     { x: center.x - sideLength, y: center.y }, // centerLeft
   ];
 
+  let headerY, imageY, showDetails, largeFontSize, smallFontSize;
+  if (scale >= 2) {
+    headerY = '15%';
+    imageY = '50%';
+    showDetails = true;
+    largeFontSize = 'small';
+    smallFontSize = 'x-small';
+  } else {
+    headerY = '25%';
+    imageY = '40%';
+    showDetails = false;
+    largeFontSize = 'medium';
+    smallFontSize = 'xx-small';
+  }
+
   return (
     <Svg
       xmlns="http://www.w3.org/2000/svg"
@@ -23,8 +38,9 @@ export default function HexagonSvg({center, padding, containerSideLength, color,
         points={points.map(({x, y}) => x + ',' + y).join(' ')}
         strokeColor={color}
         strokeHoverColor={hoverColor}/>
-      <text x="50%" y="25%" dominantBaseline="middle" textAnchor="middle">Hello</text>
-      <image x="35%" y="40%" width="30%" xlinkHref="/martial-arts.svg" />
+      <text x="50%" y={headerY} dominantBaseline="middle" textAnchor="middle" fontSize={largeFontSize}>Hello</text>
+      {showDetails && <text x="50%" y="35%" dominantBaseline="middle" textAnchor="middle" fontSize={smallFontSize}>Details</text>}
+      <image x="35%" y={imageY} width="30%" xlinkHref="/martial-arts.svg" />
     </Svg>
   );
 }
