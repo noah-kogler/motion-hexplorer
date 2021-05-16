@@ -1,35 +1,42 @@
 import Head from 'next/head'
-import styled, { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from 'styled-components';
 import SkillMap from "../components/skill-map";
 import Credits from "../components/credits";
+import { useEffect, useState } from "react";
+import LoadingIndicator from "../components/loading-indicator";
+import Header from "../components/header";
 
-export default () => (
-  <div>
-    <Head>
-      <title>MotionHexplorer</title>
-      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
-    </Head>
-    <GlobalStyle />
+export default function Index () {
+  const [showSkillMap, setShowSkillMap] = useState(false);
+  const headerHeightRem = 5;
 
-    <Title>Skill Map</Title>
+  // Wait until after client-side hydration to show the map, because useWindowSize is only available on the client.
+  useEffect(() => {
+    setShowSkillMap(true);
+  }, []);
 
-    <SkillMap />
+  return (
+    <div>
+      <Head>
+        <title>MotionHexplorer</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+      </Head>
 
-    <Credits />
-  </div>
-);
+      <GlobalStyle/>
+
+      <Header heightRem={headerHeightRem} />
+      {showSkillMap ? <SkillMap headerHeightRem={headerHeightRem} /> : <LoadingIndicator itemName="Skill Map" />}
+      <Credits />
+    </div>
+  );
+};
 
 const GlobalStyle = createGlobalStyle`
-  html, body{
+  html, body {
     height: 100%;
     width: 100%;
     margin: 0;
     padding: 0;
   }
-`;
-
-const Title = styled.h1`
-  font-family: sans-serif;
-  text-align: center;
 `;
 

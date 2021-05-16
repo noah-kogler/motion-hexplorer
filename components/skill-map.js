@@ -1,14 +1,21 @@
-import { useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import Hexagon from "./hexagon";
 import styled from "styled-components";
 import { hexHalfHeight } from "../tools/geometry";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import useWindowSize from "../hooks/window-size";
 
-export default function SkillMap() {
+export default function SkillMap({headerHeightRem}) {
   const [sideLength, setSideLength] = useState(100);
-  const width = 600;
-  const height = 800;
+  const [toPxFactor, setToPxFactor] = useState(0);
+
+  useLayoutEffect(() => {
+    setToPxFactor(parseFloat(getComputedStyle(document.documentElement).fontSize));
+  }, []);
+
+  const windowSize = useWindowSize();
+  const width = windowSize.width;
+  const height = windowSize.height - (headerHeightRem * toPxFactor);
 
   const padding = sideLength / 10;
   const halfHeight = hexHalfHeight(sideLength);
@@ -23,11 +30,8 @@ export default function SkillMap() {
   return (
     <TransformWrapper defaultScale={1} wheel={{step: 50}}>
       {
-        ({ positionX, positionY, scale, ...rest }) => (
+        ({ scale }) => (
           <>
-            <div>
-              XPOS: {positionX}, YPOS: {positionY}, SCALE: {scale}
-            </div>
             <TransformComponent>
               <Container width={width} height={height}>
                 <Hexagon center={central} sideLength={sideLength} padding={padding} color="#d1625a" hoverColor="#9e4a44" scale={scale} />
@@ -48,6 +52,8 @@ export default function SkillMap() {
 
 const Container = styled.div`
   border: 2px solid red;
+  box-sizing: border-box;
+  
   width: ${props => props.width}px;
   height: ${props => props.height}px;
 `;
