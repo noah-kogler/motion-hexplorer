@@ -3,10 +3,12 @@ import { useState } from "react";
 import HexagonSvg from "./svg/hexagon";
 import { hexHalfHeight } from "../tools/geometry";
 
-export default function Hexagon ({ sideLength, center, ...svgProps }) {
+export default function Hexagon ({ sideLength, center, color, hoverColor, ...svgProps }) {
   const [pressed, setPressed] = useState(false);
+  const [hover, setHover] = useState(false);
 
   const togglePressed = () => { setPressed(!pressed); };
+  const toggleHover = () => { setHover(!hover); };
 
   const halfHeight = hexHalfHeight(sideLength);
   const width = 2 * sideLength;
@@ -20,8 +22,16 @@ export default function Hexagon ({ sideLength, center, ...svgProps }) {
       left={center.x - sideLength}
       pressed={pressed}
       onMouseDown={togglePressed}
-      onMouseUp={togglePressed}>
-      <HexagonSvg center={{x: sideLength, y: halfHeight}} containerSideLength={sideLength} {...svgProps} />
+      onMouseUp={togglePressed}
+      onTouchStart={togglePressed}
+      onTouchEnd={togglePressed}
+      onMouseEnter={toggleHover}
+      onMouseLeave={toggleHover}>
+      <HexagonSvg
+        center={{x: sideLength, y: halfHeight}}
+        containerSideLength={sideLength}
+        color={hover ? hoverColor : color}
+        {...svgProps} />
     </Container>
   );
 }
