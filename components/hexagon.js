@@ -2,17 +2,54 @@ import styled from "styled-components";
 import { useState } from "react";
 import HexagonSvg from "./svg/hexagon";
 import { hexHalfHeight } from "../tools/geometry";
+import { useRouter } from "next/router";
 
-export default function Hexagon ({ sideLength, center, color, hoverColor, ...svgProps }) {
+export default function Hexagon ({ sideLength, center, color, hoverColor, onActivate, moving, ...svgProps }) {
+  const router = useRouter();
   const [pressed, setPressed] = useState(false);
   const [hover, setHover] = useState(false);
-
-  const togglePressed = () => { setPressed(!pressed); };
-  const toggleHover = () => { setHover(!hover); };
 
   const halfHeight = hexHalfHeight(sideLength);
   const width = 2 * sideLength;
   const height = 2 * halfHeight;
+
+  function onMouseEnter () {
+    setHover(true);
+  }
+
+  function onMouseLeave () {
+    setHover(false);
+  }
+
+  function onMouseDown () {
+    setPressed(true);
+  }
+
+  function onMouseUp () {
+    setPressed(false);
+    router.push('/details');
+  }
+
+  function onTouchStart () {
+    if (!moving) {
+      setPressed(true);
+    }
+  }
+
+  function onTouchEnd () {
+    if (!moving) {
+      router.push('/details');
+    }
+    setPressed(false);
+  }
+
+  function onTouchCancel () {
+    setPressed(false);
+  }
+
+  function onTouchMove () {
+    setPressed(false);
+  }
 
   return (
     <Container
@@ -21,12 +58,14 @@ export default function Hexagon ({ sideLength, center, color, hoverColor, ...svg
       top={center.y - halfHeight}
       left={center.x - sideLength}
       pressed={pressed}
-      onMouseDown={togglePressed}
-      onMouseUp={togglePressed}
-      onTouchStart={togglePressed}
-      onTouchEnd={togglePressed}
-      onMouseEnter={toggleHover}
-      onMouseLeave={toggleHover}>
+      onMouseDown={onMouseDown}
+      onMouseUp={onMouseUp}
+      onTouchStart={onTouchStart}
+      onTouchEnd={onTouchEnd}
+      onTouchMove={onTouchMove}
+      onTouchCancel={onTouchCancel}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}>
       <HexagonSvg
         center={{x: sideLength, y: halfHeight}}
         containerSideLength={sideLength}
