@@ -41,7 +41,7 @@ export default function HexContainer({width, height, scale, sideLength, halfHeig
         scale={scale}
         moving={moving}
         status="todo"
-        category="Körperstruktur"
+        category="Körperstruktur 1"
         title="Siu Nim Tao"
         image="/content/kettenfauststoss.svg" />
       <Hexagon
@@ -50,7 +50,7 @@ export default function HexContainer({width, height, scale, sideLength, halfHeig
         scale={scale}
         moving={moving}
         status="todo"
-        category="Positionen"
+        category="Positionen 1"
         title="Keilstoß"
         image="/content/kniestoss-mit-halten.svg" />
       <Hexagon
@@ -59,7 +59,7 @@ export default function HexContainer({width, height, scale, sideLength, halfHeig
         scale={scale}
         moving={moving}
         status="todo"
-        category="Schlag"
+        category="Schlag 1"
         title="Kettenfauststoß" />
       <Hexagon
         center={bottomRight}
@@ -67,7 +67,7 @@ export default function HexContainer({width, height, scale, sideLength, halfHeig
         scale={scale}
         moving={moving}
         status="done"
-        category="Infight"
+        category="Infight 1"
         title="Ellbogenschlag horizontal" />
       <Hexagon
         center={bottomRight2}
@@ -75,7 +75,7 @@ export default function HexContainer({width, height, scale, sideLength, halfHeig
         scale={scale}
         moving={moving}
         status="in-progress"
-        category="Infight"
+        category="Infight 2"
         title="Ellbogenschlag vertikal" />
       <Hexagon
         center={bottomRight3}
@@ -83,7 +83,7 @@ export default function HexContainer({width, height, scale, sideLength, halfHeig
         scale={scale}
         moving={moving}
         status="todo"
-        category="Infight"
+        category="Infight 3"
         title="Ellbogenschlag unterstützt" />
       <Hexagon
         center={bottomRight4}
@@ -91,7 +91,7 @@ export default function HexContainer({width, height, scale, sideLength, halfHeig
         scale={scale}
         moving={moving}
         status="todo"
-        category="Infight"
+        category="Infight 4"
         title="Kniestoß mit Halten" />
       <Hexagon
         center={bottom}
@@ -99,7 +99,7 @@ export default function HexContainer({width, height, scale, sideLength, halfHeig
         scale={scale}
         moving={moving}
         status="todo"
-        category="Tritt"
+        category="Tritt 1"
         title="Vorwärtstritt stehend" />
       <Hexagon
         center={bottomLeft}
@@ -107,7 +107,7 @@ export default function HexContainer({width, height, scale, sideLength, halfHeig
         scale={scale}
         moving={moving}
         status="todo"
-        category="Drill"
+        category="Drill 1"
         title="Tritt zu Ellbogenstoß"/>
     </Container>
   );

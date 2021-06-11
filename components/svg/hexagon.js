@@ -33,19 +33,19 @@ export default function HexagonSvg({
     { x: center.x - sideLength, y: center.y }, // centerLeft
   ];
 
-  let headerY, imageY, showDetails, largeFontSize, smallFontSize;
-  if (scale >= 2) {
-    headerY = '15%';
-    imageY = '50%';
+  let headerY, footerY, imageX, imageY, imageHeight, showDetails;
+  if (scale >= 1) {
+    headerY = '10%';
+    footerY = '65%';
+    imageX = '16%';
+    imageY = '18%';
+    imageHeight = '60%';
     showDetails = true;
-    largeFontSize = 'small';
-    smallFontSize = 'x-small';
   } else {
-    headerY = '25%';
-    imageY = '40%';
+    imageX = '8%';
+    imageY = '8%';
+    imageHeight = '75%';
     showDetails = false;
-    largeFontSize = 'medium';
-    smallFontSize = 'xx-small';
   }
 
   return (
@@ -70,9 +70,27 @@ export default function HexagonSvg({
           )
         : (
             <>
-              <text x="50%" y={headerY} dominantBaseline="middle" textAnchor="middle" fontSize={largeFontSize}>{title}</text>
-              {showDetails && <text x="50%" y="35%" dominantBaseline="middle" textAnchor="middle" fontSize={smallFontSize}>Details</text>}
-              <image x="35%" y={imageY} width="30%" xlinkHref={image} />
+              { showDetails && (
+                  <foreignObject y={headerY} width="100%" height="10%">
+                    <TextContainer xmlns="http://www.w3.org/1999/xhtml">
+                      <TopText color={adjustColor(color, -70)}>{category}</TopText>
+                    </TextContainer>
+                  </foreignObject>
+                )
+              }
+              <image
+                x={imageX}
+                y={imageY}
+                height={imageHeight}
+                xlinkHref={image}/>
+              { showDetails && (
+                  <foreignObject y={footerY} width="100%" height="25%">
+                    <TextContainer xmlns="http://www.w3.org/1999/xhtml">
+                      <BottomText>{title}</BottomText>
+                    </TextContainer>
+                  </foreignObject>
+                )
+              }
             </>
           )
       }
@@ -95,4 +113,26 @@ const Polygon = styled.polygon`
 
 const Avatar = styled.image`
   filter: ${props => props.hover ? 'brightness(75%)' : 'none'};
+`;
+
+const TextContainer = styled.div`
+  margin: 0 3rem;
+  display: flex;
+  height: 100%;
+`;
+
+const TopText = styled.div`
+  font-weight: bold;
+  font-size: .6rem;
+  align-self: flex-start;
+  text-align: center;
+  width: 100%;
+  color: ${props => props.color};
+`;
+
+const BottomText = styled.div`
+  font-size: .8rem;
+  align-self: flex-end;
+  text-align: center;
+  width: 100%;
 `;
