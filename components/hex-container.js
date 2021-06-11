@@ -1,17 +1,21 @@
 import Hexagon from "./hexagon";
 import styled from "styled-components";
 import { useState } from "react";
+import { nextPosition } from "../tools/geometry";
 
 export default function HexContainer({width, height, scale, sideLength, halfHeight}) {
   const [moving, setMoving] = useState(false);
 
   const central = {x: width / 2, y: height / 2 };
-  const topLeft = {x: central.x - 3 * sideLength / 2, y: central.y - halfHeight };
-  const top = {x: central.x, y: central.y - 2 * halfHeight };
-  const topRight = {x: central.x + 3 * sideLength / 2, y: central.y - halfHeight };
-  const bottomRight = {x: central.x + 3 * sideLength / 2, y: central.y + halfHeight };
-  const bottom = {x: central.x, y: central.y + 2 * halfHeight };
-  const bottomLeft = {x: central.x - 3 * sideLength / 2, y: central.y + halfHeight };
+  const topLeft = nextPosition(central, sideLength, halfHeight, 'top-left');
+  const top = nextPosition(central, sideLength, halfHeight, 'top');
+  const topRight = nextPosition(central, sideLength, halfHeight, 'top-right');
+  const bottomRight = nextPosition(central, sideLength, halfHeight, 'bottom-right');
+  const bottomRight2 = nextPosition(bottomRight, sideLength, halfHeight, 'bottom-right');
+  const bottomRight3 = nextPosition(bottomRight2, sideLength, halfHeight, 'bottom-right');
+  const bottomRight4 = nextPosition(bottomRight3, sideLength, halfHeight, 'bottom');
+  const bottom = nextPosition(central, sideLength, halfHeight, 'bottom');
+  const bottomLeft = nextPosition(central, sideLength, halfHeight, 'bottom-left');
 
   function onTouchStart () {
     setMoving(false); // clear the moving state of the previous touch
@@ -23,13 +27,88 @@ export default function HexContainer({width, height, scale, sideLength, halfHeig
 
   return (
     <Container width={width} height={height} onTouchMoveCapture={onTouchMove} onTouchStart={onTouchStart}>
-      <Hexagon center={central} sideLength={sideLength} color="#d1625a" hoverColor="#9e4a44" scale={scale} moving={moving} />
-      <Hexagon center={topLeft} sideLength={sideLength} color="#dbc51d" hoverColor="#b09e15" scale={scale} moving={moving} />
-      <Hexagon center={top} sideLength={sideLength} color="#25b015" hoverColor="#1c8a0f" scale={scale} moving={moving} />
-      <Hexagon center={topRight} sideLength={sideLength} color="#16c7c1" hoverColor="#10918d" scale={scale} moving={moving} />
-      <Hexagon center={bottomRight} sideLength={sideLength} color="#1330c2" hoverColor="#0d2185" scale={scale} moving={moving} />
-      <Hexagon center={bottom} sideLength={sideLength} color="#db14d8" hoverColor="#8f0d8d" scale={scale} moving={moving} />
-      <Hexagon center={bottomLeft} sideLength={sideLength} color="#6f13d1" hoverColor="#520c9c" scale={scale} moving={moving} />
+      <Hexagon
+        center={central}
+        sideLength={sideLength}
+        scale={scale}
+        moving={moving}
+        title="Noah Kogler"
+        image="/content/avatar.jpeg"
+        isAvatar={true} />
+      <Hexagon
+        center={topLeft}
+        sideLength={sideLength}
+        scale={scale}
+        moving={moving}
+        status="todo"
+        category="Körperstruktur"
+        title="Siu Nim Tao"
+        image="/content/kettenfauststoss.svg" />
+      <Hexagon
+        center={top}
+        sideLength={sideLength}
+        scale={scale}
+        moving={moving}
+        status="todo"
+        category="Positionen"
+        title="Keilstoß"
+        image="/content/kniestoss-mit-halten.svg" />
+      <Hexagon
+        center={topRight}
+        sideLength={sideLength}
+        scale={scale}
+        moving={moving}
+        status="todo"
+        category="Schlag"
+        title="Kettenfauststoß" />
+      <Hexagon
+        center={bottomRight}
+        sideLength={sideLength}
+        scale={scale}
+        moving={moving}
+        status="done"
+        category="Infight"
+        title="Ellbogenschlag horizontal" />
+      <Hexagon
+        center={bottomRight2}
+        sideLength={sideLength}
+        scale={scale}
+        moving={moving}
+        status="in-progress"
+        category="Infight"
+        title="Ellbogenschlag vertikal" />
+      <Hexagon
+        center={bottomRight3}
+        sideLength={sideLength}
+        scale={scale}
+        moving={moving}
+        status="todo"
+        category="Infight"
+        title="Ellbogenschlag unterstützt" />
+      <Hexagon
+        center={bottomRight4}
+        sideLength={sideLength}
+        scale={scale}
+        moving={moving}
+        status="todo"
+        category="Infight"
+        title="Kniestoß mit Halten" />
+      <Hexagon
+        center={bottom}
+        sideLength={sideLength}
+        scale={scale}
+        moving={moving}
+        status="todo"
+        category="Tritt"
+        title="Vorwärtstritt stehend" />
+      <Hexagon
+        center={bottomLeft}
+        sideLength={sideLength}
+        scale={scale}
+        moving={moving}
+        status="todo"
+        category="Drill"
+        title="Tritt zu Ellbogenstoß"/>
     </Container>
   );
 }

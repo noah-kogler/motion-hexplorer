@@ -1,7 +1,24 @@
 import { hexHalfHeight } from "../../tools/geometry";
 import styled from "styled-components";
+import { adjustColor, colorForStatus } from "../../tools/color";
 
-export default function HexagonSvg({center, containerSideLength, color, scale}) {
+export default function HexagonSvg({
+    center,
+    containerSideLength,
+    scale,
+    shadow,
+    hover,
+    status,
+    category,
+    title,
+    image = '/placeholder.svg',
+    isAvatar = false
+}) {
+  let color = isAvatar ? '#000000' : colorForStatus(status);
+  if (hover) {
+    color = adjustColor(color, -20);
+  }
+
   const padding = containerSideLength / 10;
   const sideLength = containerSideLength - padding;
   const halfHeight = hexHalfHeight(sideLength);
@@ -37,10 +54,28 @@ export default function HexagonSvg({center, containerSideLength, color, scale}) 
       viewBox={"0 0 " + width + " " + (2 * hexHalfHeight(containerSideLength))}>
       <Polygon
         points={points.map(({x, y}) => x + ',' + y).join(' ')}
-        strokeColor={color} />
-      <text x="50%" y={headerY} dominantBaseline="middle" textAnchor="middle" fontSize={largeFontSize}>Hello</text>
-      {showDetails && <text x="50%" y="35%" dominantBaseline="middle" textAnchor="middle" fontSize={smallFontSize}>Details</text>}
-      <image x="35%" y={imageY} width="30%" xlinkHref="/martial-arts.svg" />
+        color={color}
+        shadow={shadow} />
+      {
+        isAvatar
+        ? (
+            <>
+              <mask id="avatar-mask">
+                <Polygon
+                  points={points.map(({x, y}) => x + ',' + y).join(' ')}
+                  fill="white" />
+              </mask>
+              <Avatar x="0%" y="0%" width="100%" height="100%" mask="url(#avatar-mask)" xlinkHref={image} hover={hover} />
+            </>
+          )
+        : (
+            <>
+              <text x="50%" y={headerY} dominantBaseline="middle" textAnchor="middle" fontSize={largeFontSize}>{title}</text>
+              {showDetails && <text x="50%" y="35%" dominantBaseline="middle" textAnchor="middle" fontSize={smallFontSize}>Details</text>}
+              <image x="35%" y={imageY} width="30%" xlinkHref={image} />
+            </>
+          )
+      }
     </Svg>
   );
 }
@@ -51,8 +86,13 @@ const Svg = styled.svg`
 `;
 
 const Polygon = styled.polygon`
-  stroke: ${props => props.strokeColor};
+  stroke: #333333;
   transition: stroke .25s;
-  stroke-width: 6;
-  fill: white;
+  stroke-width: 2;
+  fill: ${props => props.color};
+  filter: ${props => props.shadow ? 'drop-shadow(2px 2px 2px rgba(0, 0, 0, .7))' : 'none'};
+`;
+
+const Avatar = styled.image`
+  filter: ${props => props.hover ? 'brightness(75%)' : 'none'};
 `;
