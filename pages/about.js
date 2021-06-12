@@ -4,7 +4,7 @@ import Head from 'next/head'
 import { createGlobalStyle } from 'styled-components';
 import Header from "../components/header/header";
 
-export default function Details () {
+export default function About () {
   const headerHeightRem = 5;
 
   return (
@@ -37,7 +37,7 @@ export default function Details () {
       <GlobalStyle/>
 
       <Header heightRem={headerHeightRem} />
-      <p>Details Page</p>
+      <p>About Page</p>
     </div>
   );
 };
@@ -50,4 +50,3 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
   }
 `;
-

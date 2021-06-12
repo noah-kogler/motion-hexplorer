@@ -8,6 +8,8 @@
     "start": "next start"
   },
   "dependencies": {
+    "@mdi/js": "^5.9.55",
+    "@mdi/react": "^1.5.0",
     "next": "10.0.9",
     "next-pwa": "^5.2.21",
     "react": "17.0.1",
