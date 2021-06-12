@@ -83,6 +83,5 @@ const ItemAnchor = styled.a`
   display: flex;
   align-items: center;
   text-decoration: none;
-  color: ${({theme}) => theme.text};
   cursor: pointer;
 `;

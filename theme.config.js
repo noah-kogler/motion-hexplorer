@@ -41,8 +41,10 @@ export const GlobalStyle = createGlobalStyle`
   }
   
   body {
-    background: url('/background.png');
-    background-size: cover;
     font-family: 'Roboto', sans-serif;
+  }
+  
+  a {
+    color: ${({theme}) => theme.text};
   }
 `;
