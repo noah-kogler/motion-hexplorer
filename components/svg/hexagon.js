@@ -104,7 +104,7 @@ const Svg = styled.svg`
 `;
 
 const Polygon = styled.polygon`
-  stroke: #333333;
+  stroke: ${({theme}) => theme.border};
   transition: stroke .25s;
   stroke-width: 2;
   fill: ${props => props.color};

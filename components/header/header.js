@@ -1,10 +1,10 @@
-import styled from "styled-components";
+import styled, { withTheme } from "styled-components";
 import { mdiDotsVertical } from '@mdi/js';
 import Icon from "@mdi/react";
 import { useState } from "react";
 import Menu from "./menu";
 
-export default function Header({heightRem}) {
+function Header({theme, title, ...menuProps}) {
   const [menuVisible, setMenuVisible] = useState(false);
 
   function onMenuButtonClick() {
@@ -13,22 +13,24 @@ export default function Header({heightRem}) {
 
   return (
     <>
-      <Container heightRem={heightRem}>
-        <Title>Skill Map</Title>
+      <Container>
+        <Title>{title}</Title>
         <Menubutton onClick={onMenuButtonClick}>
           <Icon path={mdiDotsVertical}
                 title="Menü"
                 size={1.8}
-                color="#333333" />
+                color={theme.text} />
         </Menubutton>
       </Container>
-      {menuVisible && (<Menu topRem={heightRem} />)}
+      {menuVisible && (<Menu {...menuProps} />)}
     </>
   );
 }
 
+export default withTheme(Header);
+
 const Container = styled.div`
-  height: ${props => props.heightRem}rem;
+  height: ${({theme}) => theme.headerHeight};
   border-bottom: 2px solid #333333;
   box-sizing: border-box;
   background: rgba(255, 255, 255, 0.75);
@@ -44,7 +46,7 @@ const Title = styled.h1`
   padding-top: 2rem;
   font-family: 'M PLUS Rounded 1c', sans-serif;
   text-align: center;
-  color: #333333;
+  color: ${({ theme }) => theme.text};
   flex-grow: 1;
 `;
 

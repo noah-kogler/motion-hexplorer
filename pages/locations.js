@@ -2,11 +2,11 @@
 
 import Header from "../components/header/header";
 
-export default function About () {
+export default function Locations () {
   return (
     <div>
-      <Header title="Über diese App" showAbout={false} />
-      <p>About Page</p>
+      <Header title="Location Map" showLocationMap={false} />
+      <p>Locations Page</p>
     </div>
   );
 };
