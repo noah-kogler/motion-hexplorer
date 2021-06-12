@@ -63,7 +63,7 @@ const Container = styled.ul`
   border-bottom: 2px solid ${({theme}) => theme.border};
   width: 100vw;
   max-width: 20rem;
-  z-index: 100;
+  z-index: 1000;
 `;
 
 const Item = styled.li`
