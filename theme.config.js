@@ -1,10 +1,22 @@
 import { createGlobalStyle } from "styled-components";
+import { createMuiTheme } from "@material-ui/core";
 
 export const defaultTheme = {
   text: '#333333',
   border: '#333333',
   headerHeight: '7rem',
 }
+
+export const materialUiTheme = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#333333',
+    },
+    secondary: {
+      main: '#FFFFFF',
+    },
+  },
+});
 
 export const GlobalStyle = createGlobalStyle`
   @font-face {

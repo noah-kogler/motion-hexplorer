@@ -1,8 +1,9 @@
 // noinspection JSUnusedGlobalSymbols
 
 import { ThemeProvider } from "styled-components";
+import { ThemeProvider as MaterialUiThemeProvider } from '@material-ui/core/styles';
 import Head from "next/head";
-import { defaultTheme, GlobalStyle } from "../theme.config";
+import { defaultTheme, GlobalStyle, materialUiTheme } from "../theme.config";
 
 export default function MyApp({ Component, pageProps }) {
   return (
@@ -32,8 +33,10 @@ export default function MyApp({ Component, pageProps }) {
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
       </Head>
       <ThemeProvider theme={defaultTheme}>
-        <GlobalStyle/>
-        <Component {...pageProps} />
+        <MaterialUiThemeProvider theme={materialUiTheme}>
+          <GlobalStyle/>
+          <Component {...pageProps} />
+        </MaterialUiThemeProvider>
       </ThemeProvider>
     </>
   );

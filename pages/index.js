@@ -3,7 +3,7 @@
 import SkillMap from "../components/skill-map";
 import { useEffect, useState } from "react";
 import LoadingIndicator from "../components/loading-indicator";
-import Header from "../components/header/header";
+import Header from "../components/header";
 import { createGlobalStyle } from "styled-components";
 
 export default function Index () {
