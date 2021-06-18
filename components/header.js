@@ -1,4 +1,5 @@
 import {
+  Box,
   ClickAwayListener,
   Grow,
   IconButton, ListItem,
@@ -26,9 +27,6 @@ const useStyles = makeStyles({
     boxSizing: 'border-box',
     background: 'rgba(255, 255, 255, 0.75)',
     boxShadow: '0 0 15px #000000',
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'bottom',
   },
   title: {
     padding: '1rem',
@@ -38,6 +36,10 @@ const useStyles = makeStyles({
     textAlign: 'center',
     color: props => props.palette.primary.main,
     flexGrow: '1',
+  },
+  button: {
+    width: '4rem',
+    height: '4rem',
   },
 });
 
@@ -73,24 +75,24 @@ function Header({
 
   return (
     <>
-      <div className={classes.container}>
+      <Box className={classes.container} display="flex" justifyContent="space-between" alignItems="baseline">
         {
           showBackButton &&
-          <IconButton onClick={onBackButtonClick} title="Zurück">
+          <IconButton className={classes.button} onClick={onBackButtonClick} title="Zurück">
             <ArrowBackIosIcon />
           </IconButton>
         }
         <h1 className={classes.title}>{title}</h1>
         {
           showEditButton &&
-          <IconButton onClick={onEditButtonClick} title="Bearbeiten">
+          <IconButton className={classes.button} onClick={onEditButtonClick} title="Bearbeiten">
             <EditIcon />
           </IconButton>
         }
-        <IconButton ref={anchorRef} onClick={handleToggle} title="Menü">
+        <IconButton className={classes.button} ref={anchorRef} onClick={handleToggle} title="Menü">
           <MoreVertIcon />
         </IconButton>
-      </div>
+      </Box>
       <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition style={{zIndex: 1000}}>
         {({ TransitionProps, placement }) => (
           <Grow
