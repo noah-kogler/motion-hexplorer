@@ -1,26 +1,50 @@
 import styled, { withTheme } from "styled-components";
-import { mdiDotsVertical } from '@mdi/js';
+import { mdiChevronLeft, mdiDotsVertical, mdiPencil } from '@mdi/js';
 import Icon from "@mdi/react";
 import { useState } from "react";
 import Menu from "./menu";
+import { useRouter } from "next/router";
 
-function Header({theme, title, ...menuProps}) {
+function Header({theme, title, showBackButton, showEditButton, onEditButtonClick, ...menuProps}) {
   const [menuVisible, setMenuVisible] = useState(false);
+  const router = useRouter()
 
   function onMenuButtonClick() {
     setMenuVisible(!menuVisible);
   }
 
+  function onBackButtonClick() {
+    router.back();
+  }
+
   return (
     <>
       <Container>
+        {
+          showBackButton &&
+          <Button onClick={onBackButtonClick}>
+            <Icon path={mdiChevronLeft}
+                  title="Zurück"
+                  size={1.8}
+                  color={theme.text}/>
+          </Button>
+        }
         <Title>{title}</Title>
-        <Menubutton onClick={onMenuButtonClick}>
+        {
+          showEditButton &&
+          <Button onClick={onEditButtonClick}>
+            <Icon path={mdiPencil}
+                  title="Bearbeiten"
+                  size={1.8}
+                  color={theme.text}/>
+          </Button>
+        }
+        <Button onClick={onMenuButtonClick}>
           <Icon path={mdiDotsVertical}
                 title="Menü"
                 size={1.8}
                 color={theme.text} />
-        </Menubutton>
+        </Button>
       </Container>
       {menuVisible && (<Menu {...menuProps} />)}
     </>
@@ -50,7 +74,7 @@ const Title = styled.h1`
   flex-grow: 1;
 `;
 
-const Menubutton = styled.button`
+const Button = styled.button`
   padding: 1rem 2rem;
   cursor: pointer;
   border: 0;

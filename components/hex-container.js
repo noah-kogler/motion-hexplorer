@@ -34,7 +34,8 @@ export default function HexContainer({width, height, scale, sideLength, halfHeig
         moving={moving}
         title="Noah Kogler"
         image="/content/avatar.jpeg"
-        isAvatar={true} />
+        isAvatar={true}
+        link="/profile" />
       <Hexagon
         center={topLeft}
         sideLength={sideLength}
@@ -43,7 +44,8 @@ export default function HexContainer({width, height, scale, sideLength, halfHeig
         status="todo"
         category="Körperstruktur 1"
         title="Siu Nim Tao"
-        image="/content/kettenfauststoss.svg" />
+        image="/content/kettenfauststoss.svg"
+        link="/details" />
       <Hexagon
         center={top}
         sideLength={sideLength}
@@ -52,7 +54,8 @@ export default function HexContainer({width, height, scale, sideLength, halfHeig
         status="todo"
         category="Positionen 1"
         title="Keilstoß"
-        image="/content/kniestoss-mit-halten.svg" />
+        image="/content/kniestoss-mit-halten.svg"
+        link="/details" />
       <Hexagon
         center={topRight}
         sideLength={sideLength}
@@ -60,7 +63,8 @@ export default function HexContainer({width, height, scale, sideLength, halfHeig
         moving={moving}
         status="todo"
         category="Schlag 1"
-        title="Kettenfauststoß" />
+        title="Kettenfauststoß"
+        link="/details" />
       <Hexagon
         center={bottomRight}
         sideLength={sideLength}
@@ -68,7 +72,8 @@ export default function HexContainer({width, height, scale, sideLength, halfHeig
         moving={moving}
         status="done"
         category="Infight 1"
-        title="Ellbogenschlag horizontal" />
+        title="Ellbogenschlag horizontal"
+        link="/details" />
       <Hexagon
         center={bottomRight2}
         sideLength={sideLength}
@@ -76,7 +81,8 @@ export default function HexContainer({width, height, scale, sideLength, halfHeig
         moving={moving}
         status="in-progress"
         category="Infight 2"
-        title="Ellbogenschlag vertikal" />
+        title="Ellbogenschlag vertikal"
+        link="/details" />
       <Hexagon
         center={bottomRight3}
         sideLength={sideLength}
@@ -84,7 +90,8 @@ export default function HexContainer({width, height, scale, sideLength, halfHeig
         moving={moving}
         status="todo"
         category="Infight 3"
-        title="Ellbogenschlag unterstützt" />
+        title="Ellbogenschlag unterstützt"
+        link="/details" />
       <Hexagon
         center={bottomRight4}
         sideLength={sideLength}
@@ -92,7 +99,8 @@ export default function HexContainer({width, height, scale, sideLength, halfHeig
         moving={moving}
         status="todo"
         category="Infight 4"
-        title="Kniestoß mit Halten" />
+        title="Kniestoß mit Halten"
+        link="/details" />
       <Hexagon
         center={bottom}
         sideLength={sideLength}
@@ -100,7 +108,8 @@ export default function HexContainer({width, height, scale, sideLength, halfHeig
         moving={moving}
         status="todo"
         category="Tritt 1"
-        title="Vorwärtstritt stehend" />
+        title="Vorwärtstritt stehend"
+        link="/details" />
       <Hexagon
         center={bottomLeft}
         sideLength={sideLength}
@@ -108,7 +117,8 @@ export default function HexContainer({width, height, scale, sideLength, halfHeig
         moving={moving}
         status="todo"
         category="Drill 1"
-        title="Tritt zu Ellbogenstoß"/>
+        title="Tritt zu Ellbogenstoß"
+        link="/details" />
     </Container>
   );
 }

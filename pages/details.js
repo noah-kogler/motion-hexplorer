@@ -7,7 +7,7 @@ export default function Details () {
   return (
     <>
       <GlobalStyle />
-      <Header title="Details" />
+      <Header title="Details" showBackButton={true} />
       <Container>
         <p>Details Page</p>
       </Container>

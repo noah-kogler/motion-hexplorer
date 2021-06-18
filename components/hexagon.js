@@ -4,7 +4,7 @@ import HexagonSvg from "./svg/hexagon";
 import { hexHalfHeight } from "../tools/geometry";
 import { useRouter } from "next/router";
 
-export default function Hexagon ({ sideLength, center, onActivate, moving, ...svgProps }) {
+export default function Hexagon ({ sideLength, center, onActivate, moving, link, ...svgProps }) {
   const router = useRouter();
   const [pressed, setPressed] = useState(false);
   const [hover, setHover] = useState(false);
@@ -30,7 +30,7 @@ export default function Hexagon ({ sideLength, center, onActivate, moving, ...sv
   function onMouseUp (event) {
     if (event.button === 0) {
       setPressed(false);
-      router.push('/details');
+      router.push(link);
     }
   }
 
@@ -42,7 +42,7 @@ export default function Hexagon ({ sideLength, center, onActivate, moving, ...sv
 
   function onTouchEnd () {
     if (!moving) {
-      router.push('/details');
+      router.push(link);
     }
     setPressed(false);
   }
