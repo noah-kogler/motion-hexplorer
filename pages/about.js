@@ -1,14 +1,25 @@
 // noinspection JSUnusedGlobalSymbols
 
 import Header from "../components/header";
-import styled, { createGlobalStyle } from "styled-components";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles({
+  '@global': {
+    body: {
+      background: '#7D8E99',
+    }
+  },
+  container: {
+    margin: '2rem',
+  },
+});
 
 export default function About () {
+  const classes = useStyles();
   return (
     <>
-      <GlobalStyle />
       <Header title="Über diese App" showAbout={false} />
-      <Container>
+      <div className={classes.container}>
         <h2>Idee und Inhalte</h2>
         <ul>
           <li>Matthias Fagerer</li>
@@ -22,17 +33,7 @@ export default function About () {
         <ul>
           <li>Hintergrund: <a href="https://unsplash.com/@jeremiecs?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Jérémie Crausaz</a> über <a href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a></li>
         </ul>
-      </Container>
+      </div>
     </>
   );
 };
-
-const Container = styled.div`
-  margin: 2rem;
-`;
-
-export const GlobalStyle = createGlobalStyle`
-  body {
-    background: #7D8E99;
-  }
-`;

@@ -1,7 +1,6 @@
 // noinspection JSUnusedGlobalSymbols
 
 import Header from "../components/header";
-import { createGlobalStyle } from "styled-components";
 import dynamic from "next/dynamic";
 
 export default function Locations () {
@@ -15,15 +14,8 @@ export default function Locations () {
 
   return (
     <>
-      <GlobalStyle />
       <Header title="Location Map" showLocationMap={false} />
       <Map />
     </>
   );
 };
-
-export const GlobalStyle = createGlobalStyle`
-  body {
-    background: #7D8E99;
-  }
-`;

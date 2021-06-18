@@ -1,26 +1,27 @@
 // noinspection JSUnusedGlobalSymbols
 
 import Header from "../components/header";
-import styled, { createGlobalStyle } from "styled-components";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles({
+  '@global': {
+    body: {
+      background: '#7D8E99',
+    }
+  },
+  container: {
+    margin: '2rem',
+  },
+});
 
 export default function Details () {
+  const classes = useStyles();
   return (
     <>
-      <GlobalStyle />
       <Header title="Details" showBackButton={true} />
-      <Container>
+      <div className={classes.container}>
         <p>Details Page</p>
-      </Container>
+      </div>
     </>
   );
 };
-
-const Container = styled.div`
-  margin: 2rem;
-`;
-
-export const GlobalStyle = createGlobalStyle`
-  body {
-    background: #7D8E99;
-  }
-`;

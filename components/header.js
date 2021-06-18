@@ -1,4 +1,3 @@
-import styled, { withTheme } from "styled-components";
 import {
   ClickAwayListener,
   Grow,
@@ -7,7 +6,7 @@ import {
   MenuItem,
   MenuList,
   Paper,
-  Popper
+  Popper, withTheme
 } from '@material-ui/core';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import EditIcon from '@material-ui/icons/Edit';
@@ -18,8 +17,32 @@ import PersonIcon from '@material-ui/icons/Person';
 import { useRouter } from "next/router";
 import { useRef, useState } from "react";
 import Link from 'next/link';
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles({
+  container: {
+    height: props => props.headerHeight,
+    borderBottom: '2px solid #333333',
+    boxSizing: 'border-box',
+    background: 'rgba(255, 255, 255, 0.75)',
+    boxShadow: '0 0 15px #000000',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'bottom',
+  },
+  title: {
+    padding: '1rem',
+    margin: '0',
+    paddingTop: '2rem',
+    fontFamily: "'M PLUS Rounded 1c', sans-serif",
+    textAlign: 'center',
+    color: props => props.palette.primary.main,
+    flexGrow: '1',
+  },
+});
 
 function Header({
+  theme,
   title,
   showBackButton = false,
   showEditButton,
@@ -28,6 +51,7 @@ function Header({
   showLocationMap=true,
   showAbout=true
 }) {
+  const classes = useStyles(theme);
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const anchorRef = useRef(null);
@@ -49,14 +73,14 @@ function Header({
 
   return (
     <>
-      <Container>
+      <div className={classes.container}>
         {
           showBackButton &&
           <IconButton onClick={onBackButtonClick} title="Zurück">
             <ArrowBackIosIcon />
           </IconButton>
         }
-        <Title>{title}</Title>
+        <h1 className={classes.title}>{title}</h1>
         {
           showEditButton &&
           <IconButton onClick={onEditButtonClick} title="Bearbeiten">
@@ -66,7 +90,7 @@ function Header({
         <IconButton ref={anchorRef} onClick={handleToggle} title="Menü">
           <MoreVertIcon />
         </IconButton>
-      </Container>
+      </div>
       <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition style={{zIndex: 1000}}>
         {({ TransitionProps, placement }) => (
           <Grow
@@ -126,24 +150,3 @@ function Header({
 }
 
 export default withTheme(Header);
-
-const Container = styled.div`
-  height: ${({theme}) => theme.headerHeight};
-  border-bottom: 2px solid #333333;
-  box-sizing: border-box;
-  background: rgba(255, 255, 255, 0.75);
-  box-shadow: 0 0 15px #000000;
-  display: flex;
-  justify-content: space-between;
-  align-items: bottom;
-`;
-
-const Title = styled.h1`
-  padding: 1rem;
-  margin: 0;
-  padding-top: 2rem;
-  font-family: 'M PLUS Rounded 1c', sans-serif;
-  text-align: center;
-  color: ${({ theme }) => theme.text};
-  flex-grow: 1;
-`;

@@ -4,9 +4,19 @@ import SkillMap from "../components/skill-map";
 import { useEffect, useState } from "react";
 import LoadingIndicator from "../components/loading-indicator";
 import Header from "../components/header";
-import { createGlobalStyle } from "styled-components";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles({
+  '@global': {
+    body: {
+      background: "url('/background.png')",
+      backgroundSize: 'cover',
+    },
+  }
+});
 
 export default function Index () {
+  useStyles();
   const [showSkillMap, setShowSkillMap] = useState(false);
 
   // Wait until after client-side hydration to show the map, because useWindowSize is only available on the client.
@@ -16,16 +26,10 @@ export default function Index () {
 
   return (
     <>
-      <GlobalStyle />
       <Header title="Skill Map" showSkillMap={false} />
-      {showSkillMap ? <SkillMap /> : <LoadingIndicator itemName="Skill Map" />}
+      <div>
+        {showSkillMap ? <SkillMap /> : <LoadingIndicator itemName="Skill Map" />}
+      </div>
     </>
   );
 };
-
-export const GlobalStyle = createGlobalStyle`
-  body {
-    background: url('/background.png');
-    background-size: cover;
-  }
-`;

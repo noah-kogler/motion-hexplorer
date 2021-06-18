@@ -1,16 +1,19 @@
-import styled from "styled-components";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles({
+  container: {
+    position: 'absolute',
+    bottom: '0',
+    fontSize: 'x-small',
+    padding: '.2rem',
+  },
+});
 
 export default function LoadingIndicator({itemName}) {
+  const classes = useStyles();
   return (
-    <Container>
+    <div className={classes.container}>
       Loading ${itemName}.
-    </Container>
+    </div>
   );
 }
-
-const Container = styled.div`
-  position: absolute;
-  bottom: 0;
-  font-size: x-small;
-  padding: .2rem;
-`;

@@ -3,7 +3,7 @@ import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import useWindowSize from "../hooks/window-size";
 import useDocumentFontSize from "../hooks/document-font-size";
 import HexContainer from "./hex-container";
-import { withTheme } from "styled-components";
+import { withTheme } from "@material-ui/core";
 
 function SkillMap({theme}) {
   const sideLength = 100;

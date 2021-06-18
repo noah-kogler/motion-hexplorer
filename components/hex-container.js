@@ -1,11 +1,18 @@
 import Hexagon from "./hexagon";
-import styled from "styled-components";
 import { useState } from "react";
 import { nextPosition } from "../tools/geometry";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles({
+  container: {
+    width: props => props.width + 'px',
+    height: props => props.height + 'px',
+  },
+});
 
 export default function HexContainer({width, height, scale, sideLength, halfHeight}) {
   const [moving, setMoving] = useState(false);
-
+  const classes = useStyles({width, height});
   const central = {x: width / 2, y: height / 2 };
   const topLeft = nextPosition(central, sideLength, halfHeight, 'top-left');
   const top = nextPosition(central, sideLength, halfHeight, 'top');
@@ -26,7 +33,7 @@ export default function HexContainer({width, height, scale, sideLength, halfHeig
   }
 
   return (
-    <Container width={width} height={height} onTouchMoveCapture={onTouchMove} onTouchStart={onTouchStart}>
+    <div className={classes.container} onTouchMoveCapture={onTouchMove} onTouchStart={onTouchStart}>
       <Hexagon
         center={central}
         sideLength={sideLength}
@@ -119,11 +126,6 @@ export default function HexContainer({width, height, scale, sideLength, halfHeig
         category="Drill 1"
         title="Tritt zu Ellbogenstoß"
         link="/details" />
-    </Container>
+    </div>
   );
 }
-
-const Container = styled.div`
-  width: ${props => props.width}px;
-  height: ${props => props.height}px;
-`;

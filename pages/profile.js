@@ -1,12 +1,24 @@
 // noinspection JSUnusedGlobalSymbols
 
 import Header from "../components/header";
-import styled, { createGlobalStyle } from "styled-components";
 import { useState } from "react";
 import Edit from "../components/profile/edit";
 import Show from "../components/profile/show";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles({
+  '@global': {
+    body: {
+      background: '#7D8E99',
+    }
+  },
+  container: {
+    margin: '2rem',
+  },
+});
 
 export default function Profile () {
+  const classes = useStyles();
   const [edit, setEdit] = useState(false);
 
   function onEditButtonClick() {
@@ -15,21 +27,10 @@ export default function Profile () {
 
   return (
     <>
-      <GlobalStyle />
       <Header title="Profile" showBackButton={!edit} showEditButton={!edit} onEditButtonClick={onEditButtonClick}/>
-      <Container>
+      <div className={classes.container}>
         {edit ? <Edit /> : <Show />}
-      </Container>
+      </div>
     </>
   );
 };
-
-const Container = styled.div`
-  margin: 2rem;
-`;
-
-export const GlobalStyle = createGlobalStyle`
-  body {
-    background: #7D8E99;
-  }
-`;

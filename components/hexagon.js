@@ -1,8 +1,20 @@
-import styled from "styled-components";
 import { useState } from "react";
 import HexagonSvg from "./svg/hexagon";
 import { hexHalfHeight } from "../tools/geometry";
 import { useRouter } from "next/router";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles({
+  container: {
+    position: 'absolute',
+    top: props => (props.pressed ? props.top + 2 : props.top) + 'px',
+    left: props => (props.pressed ? props.left + 2 : props.left) + 'px',
+    width: props => (props.pressed ? props.width - 4 : props.width) + 'px',
+    height: props => (props.pressed ? props.height - 4 : props.height) + 'px',
+    transition: 'width .25s, height .25s, top .25s, left .25s',
+    cursor: 'pointer',
+  },
+});
 
 export default function Hexagon ({ sideLength, center, onActivate, moving, link, ...svgProps }) {
   const router = useRouter();
@@ -12,6 +24,7 @@ export default function Hexagon ({ sideLength, center, onActivate, moving, link,
   const halfHeight = hexHalfHeight(sideLength);
   const width = 2 * sideLength;
   const height = 2 * halfHeight;
+  const classes = useStyles({width, height, top: center.y - halfHeight, left: center.x - sideLength, pressed});
 
   function onMouseEnter () {
     setHover(true);
@@ -56,12 +69,8 @@ export default function Hexagon ({ sideLength, center, onActivate, moving, link,
   }
 
   return (
-    <Container
-      width={width}
-      height={height}
-      top={center.y - halfHeight}
-      left={center.x - sideLength}
-      pressed={pressed}
+    <div
+      className={classes.container}
       onMouseDown={onMouseDown}
       onMouseUp={onMouseUp}
       onTouchStart={onTouchStart}
@@ -76,16 +85,6 @@ export default function Hexagon ({ sideLength, center, onActivate, moving, link,
         shadow={!pressed}
         hover={hover}
         {...svgProps} />
-    </Container>
+    </div>
   );
 }
-
-const Container = styled.div`
-  position: absolute;
-  top: ${props => props.pressed ? props.top + 2 : props.top}px;
-  left: ${props => props.pressed ? props.left + 2 : props.left}px;
-  width: ${props => props.pressed ? props.width - 4 : props.width}px;
-  height: ${props => props.pressed ? props.height - 4 : props.height}px;
-  transition: width .25s, height .25s, top .25s, left .25s;
-  cursor: pointer;
-`;

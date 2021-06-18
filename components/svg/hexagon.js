@@ -1,6 +1,42 @@
 import { hexHalfHeight } from "../../tools/geometry";
-import styled from "styled-components";
+import { makeStyles } from '@material-ui/core/styles';
 import { adjustColor, colorForStatus } from "../../tools/color";
+
+const useStyles = makeStyles({
+  svg: {
+    width: '100%',
+    height: '100%',
+  },
+  polygon: {
+    stroke: '#333333',
+    transition: 'stroke .25s',
+    strokeWidth: 2,
+    fill: props => props.isAvatar ? '' : (props.hover ? adjustColor(props.color, -20) : props.color),
+    filter: props => props.shadow ? 'drop-shadow(2px 2px 2px rgba(0, 0, 0, .7))' : 'none',
+  },
+  avatar: {
+    filter: props => props.hover ? 'brightness(75%)' : 'none',
+  },
+  textContainer: {
+    margin: '0 3rem',
+    display: 'flex',
+    height: '100%',
+  },
+  topText: {
+    fontWeight: 'bold',
+    fontSize: '.6rem',
+    alignSelf: 'flex-start',
+    textAlign: 'center',
+    width: '100%',
+    color: props => adjustColor(props.color, -70),
+  },
+  bottomText: {
+    fontSize: '.8rem',
+    alignSelf: 'flex-end',
+    textAlign: 'center',
+    width: '100%',
+  },
+});
 
 export default function HexagonSvg({
     center,
@@ -15,9 +51,7 @@ export default function HexagonSvg({
     isAvatar = false
 }) {
   let color = isAvatar ? '#000000' : colorForStatus(status);
-  if (hover) {
-    color = adjustColor(color, -20);
-  }
+  const classes = useStyles({color, shadow, hover, isAvatar});
 
   const padding = containerSideLength / 10;
   const sideLength = containerSideLength - padding;
@@ -49,32 +83,40 @@ export default function HexagonSvg({
   }
 
   return (
-    <Svg
+    <svg
       xmlns="http://www.w3.org/2000/svg"
-      viewBox={"0 0 " + width + " " + (2 * hexHalfHeight(containerSideLength))}>
-      <Polygon
-        points={points.map(({x, y}) => x + ',' + y).join(' ')}
-        color={color}
-        shadow={shadow} />
+      viewBox={"0 0 " + width + " " + (2 * hexHalfHeight(containerSideLength))}
+      className={classes.svg}>
+      <polygon
+        className={classes.polygon}
+        points={points.map(({x, y}) => x + ',' + y).join(' ')} />
       {
         isAvatar
         ? (
             <>
               <mask id="avatar-mask">
-                <Polygon
+                <polygon
+                  className={classes.polygon}
                   points={points.map(({x, y}) => x + ',' + y).join(' ')}
                   fill="white" />
               </mask>
-              <Avatar x="0%" y="0%" width="100%" height="100%" mask="url(#avatar-mask)" xlinkHref={image} hover={hover} />
+              <image
+                className={classes.avatar}
+                x="0%"
+                y="0%"
+                width="100%"
+                height="100%"
+                mask="url(#avatar-mask)"
+                xlinkHref={image} />
             </>
           )
         : (
             <>
               { showDetails && (
                   <foreignObject y={headerY} width="100%" height="10%">
-                    <TextContainer xmlns="http://www.w3.org/1999/xhtml">
-                      <TopText color={adjustColor(color, -70)}>{category}</TopText>
-                    </TextContainer>
+                    <div className={classes.textContainer} xmlns="http://www.w3.org/1999/xhtml">
+                      <div className={classes.topText}>{category}</div>
+                    </div>
                   </foreignObject>
                 )
               }
@@ -85,54 +127,15 @@ export default function HexagonSvg({
                 xlinkHref={image}/>
               { showDetails && (
                   <foreignObject y={footerY} width="100%" height="25%">
-                    <TextContainer xmlns="http://www.w3.org/1999/xhtml">
-                      <BottomText>{title}</BottomText>
-                    </TextContainer>
+                    <div className={classes.textContainer} xmlns="http://www.w3.org/1999/xhtml">
+                      <div className={classes.bottomText}>{title}</div>
+                    </div>
                   </foreignObject>
                 )
               }
             </>
           )
       }
-    </Svg>
+    </svg>
   );
 }
-
-const Svg = styled.svg`
-  width: 100%;
-  height: 100%;
-`;
-
-const Polygon = styled.polygon`
-  stroke: ${({theme}) => theme.border};
-  transition: stroke .25s;
-  stroke-width: 2;
-  fill: ${props => props.color};
-  filter: ${props => props.shadow ? 'drop-shadow(2px 2px 2px rgba(0, 0, 0, .7))' : 'none'};
-`;
-
-const Avatar = styled.image`
-  filter: ${props => props.hover ? 'brightness(75%)' : 'none'};
-`;
-
-const TextContainer = styled.div`
-  margin: 0 3rem;
-  display: flex;
-  height: 100%;
-`;
-
-const TopText = styled.div`
-  font-weight: bold;
-  font-size: .6rem;
-  align-self: flex-start;
-  text-align: center;
-  width: 100%;
-  color: ${props => props.color};
-`;
-
-const BottomText = styled.div`
-  font-size: .8rem;
-  align-self: flex-end;
-  text-align: center;
-  width: 100%;
-`;
