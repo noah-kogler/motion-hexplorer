@@ -48,7 +48,7 @@ function Header({
   title,
   showBackButton = false,
   showEditButton,
-  onEditButtonClick,
+  editButtonHref,
   showSkillMap=true,
   showLocationMap=true,
   showAbout=true
@@ -85,7 +85,7 @@ function Header({
         <h1 className={classes.title}>{title}</h1>
         {
           showEditButton &&
-          <IconButton className={classes.button} onClick={onEditButtonClick} title="Bearbeiten">
+          <IconButton className={classes.button} href={editButtonHref} title="Bearbeiten">
             <EditIcon />
           </IconButton>
         }

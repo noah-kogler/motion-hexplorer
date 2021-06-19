@@ -6,5 +6,6 @@ export default (req, res) => {
     name: 'Noah Kogler',
     description: 'App developer',
     avatarUrl: '/content/avatar.jpeg',
+    pushNotifications: true,
   })
 }
