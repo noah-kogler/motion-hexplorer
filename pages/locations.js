@@ -4,8 +4,8 @@ import Header from "../components/header";
 import dynamic from "next/dynamic";
 
 export default function Locations () {
-  const Map = dynamic(
-    () => import('../components/map'),
+  const LocationMap = dynamic(
+    () => import('../components/location-map'),
     {
       loading: () => <p>A map is loading</p>,
       ssr: false
@@ -15,7 +15,7 @@ export default function Locations () {
   return (
     <>
       <Header title="Location Map" showLocationMap={false} />
-      <Map />
+      <LocationMap />
     </>
   );
 };
