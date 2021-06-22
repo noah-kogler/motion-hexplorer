@@ -1,25 +1,13 @@
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
-import useWindowSize from "../hooks/window-size";
 import { withTheme } from "@material-ui/core";
-import useDocumentFontSize from "../hooks/document-font-size";
+import useContentAreaSize from "../hooks/content-area-size";
 
 L.Icon.Default.imagePath='icons/leaflet/';
 
 function LocationMap({theme}) {
-  const windowSize = useWindowSize();
-
-  const matches = theme.headerHeight.match(/(\d+)\s*rem/);
-  if (!matches) {
-    throw new Error(`Unsupported value for headerHeight in theme config: ${theme.headerHeight}`);
-  }
-  const headerHeightRem = parseInt(matches[1], 10);
-  const documentFontSize = useDocumentFontSize();
-
-  const width = windowSize.width;
-  const height = windowSize.height - (headerHeightRem * documentFontSize);
-
+  const {width, height} = useContentAreaSize(theme);
   const salzburg = [47.8095, 13.0550];
 
   if (width === 0 && height === 0) {
@@ -27,7 +15,7 @@ function LocationMap({theme}) {
   }
 
   return (
-    <div style={{height, width}}>
+    <div style={{width, height}}>
       <MapContainer
         center={salzburg}
         zoom={13}
