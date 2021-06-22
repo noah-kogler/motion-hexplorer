@@ -6,6 +6,7 @@ import useSWR from "swr";
 import fetchJson from "../../tools/fetcher";
 import { useRouter } from "next/router";
 import { Box } from "@material-ui/core";
+import Link from 'next/link';
 
 const useStyles = makeStyles({
   '@global': {
@@ -72,6 +73,22 @@ export default function Lesson () {
           <Box mb={4}>
             <div className={classes.label}>Tipps</div>
             <div className={[classes.value, classes.pre].join(' ')}>{data.tips}</div>
+          </Box>
+        }
+        {
+          data.location &&
+          <Box mb={4}>
+            <div className={classes.label}>Location</div>
+            <div className={classes.value}>
+              <Link
+                href={{
+                  pathname: '/locations',
+                  query: { markLessonId: data.id },
+                }}
+              >
+                {data.location.name}
+              </Link>
+            </div>
           </Box>
         }
       </div>

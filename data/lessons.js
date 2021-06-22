@@ -41,7 +41,7 @@ export const lessons = [
     title: 'Ellbogenschlag horizontal',
     videoId: '4_hCWML7YZA',
     tips: '- Präzisse und Dynamisch üben\n' +
-     '- Struktur und Ausrichtung behalten'
+     '- Struktur und Ausrichtung behalten',
   },
   {
     id: 'i2',
@@ -51,6 +51,7 @@ export const lessons = [
     title: 'Ellbogenschlag vertikal',
     videoId: 'qprpRb5lceU',
     tips: '- Struktur bei Schlag bewahren',
+    location: {name: 'Salzburg Aigen', coords: [47.7885764, 13.0787463]},
   },
   {
     id: 'i3',
@@ -59,6 +60,7 @@ export const lessons = [
     category: 'Infight 3',
     title: 'Ellbogenschlag unterstützt',
     videoId: '70YWIrVW4Dc',
+    location: {name: 'Bräustübl', coords: [47.8057092, 13.0333467]},
   },
   {
     id: 'i4',

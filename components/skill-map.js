@@ -6,6 +6,10 @@ import useContentAreaSize from "../hooks/content-area-size";
 
 function SkillMap({theme}) {
   const {width, height} = useContentAreaSize(theme);
+  if (width === 0 && height === 0) {
+    return <div>loading...</div>
+  }
+
   const sideLength = 100;
 
   const halfHeight = hexHalfHeight(sideLength);
