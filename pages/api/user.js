@@ -7,5 +7,5 @@ export default (req, res) => {
     description: 'App developer',
     avatarUrl: '/content/avatar.jpeg',
     pushNotifications: true,
-  })
+  });
 }

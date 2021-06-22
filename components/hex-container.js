@@ -2,6 +2,8 @@ import Hexagon from "./hexagon";
 import { useState } from "react";
 import { nextPosition } from "../tools/geometry";
 import { makeStyles } from "@material-ui/core/styles";
+import useSWR from "swr";
+import fetchJson from "../tools/fetcher";
 
 const useStyles = makeStyles({
   container: {
@@ -13,16 +15,26 @@ const useStyles = makeStyles({
 export default function HexContainer({width, height, scale, sideLength, halfHeight}) {
   const [moving, setMoving] = useState(false);
   const classes = useStyles({width, height});
-  const central = {x: width / 2, y: height / 2 };
-  const topLeft = nextPosition(central, sideLength, halfHeight, 'top-left');
-  const top = nextPosition(central, sideLength, halfHeight, 'top');
-  const topRight = nextPosition(central, sideLength, halfHeight, 'top-right');
-  const bottomRight = nextPosition(central, sideLength, halfHeight, 'bottom-right');
-  const bottomRight2 = nextPosition(bottomRight, sideLength, halfHeight, 'bottom-right');
-  const bottomRight3 = nextPosition(bottomRight2, sideLength, halfHeight, 'bottom-right');
-  const bottomRight4 = nextPosition(bottomRight3, sideLength, halfHeight, 'bottom');
-  const bottom = nextPosition(central, sideLength, halfHeight, 'bottom');
-  const bottomLeft = nextPosition(central, sideLength, halfHeight, 'bottom-left');
+  const { data: lessons, error } = useSWR('/api/lesson', fetchJson);
+
+  if (error) {
+    return <div>Failed to load. Error: {error.message}</div>;
+  }
+  if (!lessons) {
+    return <div>loading...</div>;
+  }
+
+  const positions = {};
+  positions.central = {x: width / 2, y: height / 2 };
+  positions.topLeft = nextPosition(positions.central, sideLength, halfHeight, 'top-left');
+  positions.top = nextPosition(positions.central, sideLength, halfHeight, 'top');
+  positions.topRight = nextPosition(positions.central, sideLength, halfHeight, 'top-right');
+  positions.bottomRight = nextPosition(positions.central, sideLength, halfHeight, 'bottom-right');
+  positions.bottomRight2 = nextPosition(positions.bottomRight, sideLength, halfHeight, 'bottom-right');
+  positions.bottomRight3 = nextPosition(positions.bottomRight2, sideLength, halfHeight, 'bottom-right');
+  positions.bottomRight4 = nextPosition(positions.bottomRight3, sideLength, halfHeight, 'bottom');
+  positions.bottom = nextPosition(positions.central, sideLength, halfHeight, 'bottom');
+  positions.bottomLeft = nextPosition(positions.central, sideLength, halfHeight, 'bottom-left');
 
   function onTouchStart () {
     setMoving(false); // clear the moving state of the previous touch
@@ -35,7 +47,7 @@ export default function HexContainer({width, height, scale, sideLength, halfHeig
   return (
     <div className={classes.container} onTouchMoveCapture={onTouchMove} onTouchStart={onTouchStart}>
       <Hexagon
-        center={central}
+        center={positions.central}
         sideLength={sideLength}
         scale={scale}
         moving={moving}
@@ -43,89 +55,18 @@ export default function HexContainer({width, height, scale, sideLength, halfHeig
         image="/content/avatar.jpeg"
         isAvatar={true}
         link="/profile" />
-      <Hexagon
-        center={topLeft}
-        sideLength={sideLength}
-        scale={scale}
-        moving={moving}
-        status="todo"
-        category="Körperstruktur 1"
-        title="Siu Nim Tao"
-        image="/content/kettenfauststoss.svg"
-        link="/details" />
-      <Hexagon
-        center={top}
-        sideLength={sideLength}
-        scale={scale}
-        moving={moving}
-        status="todo"
-        category="Positionen 1"
-        title="Keilstoß"
-        image="/content/kniestoss-mit-halten.svg"
-        link="/details" />
-      <Hexagon
-        center={topRight}
-        sideLength={sideLength}
-        scale={scale}
-        moving={moving}
-        status="todo"
-        category="Schlag 1"
-        title="Kettenfauststoß"
-        link="/details" />
-      <Hexagon
-        center={bottomRight}
-        sideLength={sideLength}
-        scale={scale}
-        moving={moving}
-        status="done"
-        category="Infight 1"
-        title="Ellbogenschlag horizontal"
-        link="/details" />
-      <Hexagon
-        center={bottomRight2}
-        sideLength={sideLength}
-        scale={scale}
-        moving={moving}
-        status="in-progress"
-        category="Infight 2"
-        title="Ellbogenschlag vertikal"
-        link="/details" />
-      <Hexagon
-        center={bottomRight3}
-        sideLength={sideLength}
-        scale={scale}
-        moving={moving}
-        status="todo"
-        category="Infight 3"
-        title="Ellbogenschlag unterstützt"
-        link="/details" />
-      <Hexagon
-        center={bottomRight4}
-        sideLength={sideLength}
-        scale={scale}
-        moving={moving}
-        status="todo"
-        category="Infight 4"
-        title="Kniestoß mit Halten"
-        link="/details" />
-      <Hexagon
-        center={bottom}
-        sideLength={sideLength}
-        scale={scale}
-        moving={moving}
-        status="todo"
-        category="Tritt 1"
-        title="Vorwärtstritt stehend"
-        link="/details" />
-      <Hexagon
-        center={bottomLeft}
-        sideLength={sideLength}
-        scale={scale}
-        moving={moving}
-        status="todo"
-        category="Drill 1"
-        title="Tritt zu Ellbogenstoß"
-        link="/details" />
+      {
+        lessons.map(lesson => <Hexagon
+          center={positions[lesson.position]}
+          sideLength={sideLength}
+          scale={scale}
+          moving={moving}
+          status={lesson.status}
+          category={lesson.category}
+          title={lesson.title}
+          image={lesson.image}
+          link={`/lesson/${lesson.id}`}/>)
+      }
     </div>
   );
 }

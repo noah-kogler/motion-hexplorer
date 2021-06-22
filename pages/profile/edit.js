@@ -32,7 +32,7 @@ export default function Edit () {
   const [pushNotifications, setPushNotifications] = useFormState(data?.pushNotifications ?? false);
 
   if (error) {
-    return <div>failed to load</div>;
+    return <div>Failed to load. Error: {error.message}</div>;
   }
   if (!data) {
     return <div>loading...</div>;

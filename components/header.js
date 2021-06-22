@@ -70,7 +70,7 @@ function Header({
   }
 
   function onBackButtonClick() {
-    router.back();
+    router.push('/');
   }
 
   return (
