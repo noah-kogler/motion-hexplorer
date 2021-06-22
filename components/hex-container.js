@@ -47,6 +47,7 @@ export default function HexContainer({width, height, scale, sideLength, halfHeig
   return (
     <div className={classes.container} onTouchMoveCapture={onTouchMove} onTouchStart={onTouchStart}>
       <Hexagon
+        key="avatar"
         center={positions.central}
         sideLength={sideLength}
         scale={scale}
@@ -57,6 +58,7 @@ export default function HexContainer({width, height, scale, sideLength, halfHeig
         link="/profile" />
       {
         lessons.map(lesson => <Hexagon
+          key={lesson.id}
           center={positions[lesson.position]}
           sideLength={sideLength}
           scale={scale}
