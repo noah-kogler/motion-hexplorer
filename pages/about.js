@@ -1,21 +1,13 @@
 // noinspection JSUnusedGlobalSymbols
 
 import Header from "../components/header";
-import { makeStyles } from "@material-ui/core/styles";
-
-const useStyles = makeStyles({
-  container: {
-    padding: '2rem',
-    background: 'rgba(255, 255, 255, 0.5)',
-  },
-});
+import Content from "../components/content";
 
 export default function About () {
-  const classes = useStyles();
   return (
     <>
       <Header title="Über diese App" showAbout={false} />
-      <div className={classes.container}>
+      <Content>
         <h2>Idee und Inhalte</h2>
         <ul>
           <li>Matthias Fagerer</li>
@@ -29,7 +21,7 @@ export default function About () {
         <ul>
           <li>Hintergrund: <a href="https://unsplash.com/@jeremiecs?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Jérémie Crausaz</a> über <a href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a></li>
         </ul>
-      </div>
+      </Content>
     </>
   );
 };

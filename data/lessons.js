@@ -32,8 +32,7 @@ export const lessons = [
     title: 'Kettenfaust Stoß',
     image: '/content/s1.svg',
     videoId: 'C4zFbCJTsE4',
-    tips: '- Beachten der Details\n' +
-      '- Hintere (Schützende) Faust schließt mit Kinn ab'
+    tips: '- Hintere (Schützende) Faust schließt mit Kinn ab'
   },
   {
     id: 'i1',

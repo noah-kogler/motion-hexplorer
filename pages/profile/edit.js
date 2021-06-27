@@ -1,26 +1,15 @@
 // noinspection JSUnusedGlobalSymbols
 
 import Header from "../../components/header";
-import { makeStyles } from "@material-ui/core/styles";
 import { Box, Button, Checkbox, FormControlLabel, TextField } from "@material-ui/core";
 import Image from "next/image";
 import useSWR from "swr";
 import fetchJson from "../../tools/fetcher";
 import { useFormState } from "react-hooks-use-form-state";
 import { useRouter } from "next/router";
-
-const useStyles = makeStyles({
-  container: {
-    padding: '2rem',
-    background: 'rgba(255, 255, 255, 0.5)',
-  },
-  form: {
-    maxWidth: '40rem',
-  }
-});
+import Content from "../../components/content";
 
 export default function Edit () {
-  const classes = useStyles();
   const router = useRouter();
 
   const { data, error } = useSWR("/api/user", fetchJson);
@@ -45,8 +34,8 @@ export default function Edit () {
   return (
     <>
       <Header title="Profil bearbeiten" showBackButton={false} />
-      <div className={classes.container}>
-        <form className={classes.form}>
+      <Content>
+        <form>
           <Box mb={4}>
             <Image src={data.avatarUrl} width={300} height={300} />
           </Box>
@@ -95,7 +84,7 @@ export default function Edit () {
             </Box>
           </Box>
         </form>
-      </div>
+      </Content>
     </>
   );
 };

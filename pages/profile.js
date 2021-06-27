@@ -1,31 +1,13 @@
 // noinspection JSUnusedGlobalSymbols
 
 import Header from "../components/header";
-import { makeStyles } from "@material-ui/core/styles";
 import useSWR from "swr";
 import fetchJson from "../tools/fetcher";
 import Image from 'next/image'
 import { Box } from "@material-ui/core";
-
-const useStyles = makeStyles({
-  container: {
-    padding: '2rem',
-    background: 'rgba(255, 255, 255, 0.5)',
-  },
-  row: {
-    marginBottom: '2rem',
-  },
-  label: {
-    fontSize: '.8rem',
-  },
-  value: {
-    fontSize: '1.4rem',
-  }
-});
+import Content from "../components/content";
 
 export default function Profile () {
-  const classes = useStyles();
-
   const { data, error } = useSWR("/api/user", fetchJson);
   if (error) {
     return <div>Failed to load. Error: {error.message}</div>;
@@ -37,19 +19,19 @@ export default function Profile () {
   return (
     <>
       <Header title="Profile" showBackButton={true} showEditButton={true} editButtonHref="/profile/edit"/>
-      <div className={classes.container}>
+      <Content>
         <Box mb={4}>
           <Image src={data.avatarUrl} width={300} height={300} />
         </Box>
+        <h2>Name</h2>
         <Box mb={4}>
-          <div className={classes.label}>Name</div>
-          <div className={classes.value}>{data.name}</div>
+          {data.name}
         </Box>
+        <h2>Beschreibung</h2>
         <Box mb={4}>
-          <div className={classes.label}>Beschreibung</div>
-          <div className={classes.value}>{data.description}</div>
+          {data.description}
         </Box>
-      </div>
+      </Content>
     </>
   );
 }

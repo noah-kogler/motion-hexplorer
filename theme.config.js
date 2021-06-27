@@ -3,10 +3,10 @@ import { createMuiTheme } from "@material-ui/core";
 export const defaultTheme = createMuiTheme({
   palette: {
     primary: {
-      main: '#333333',
+      main: '#292F36',
     },
     secondary: {
-      main: '#FFFFFF',
+      main: '#D1D7DB',
     },
   },
   headerHeight: '7rem',
@@ -25,13 +25,18 @@ export const defaultTheme = createMuiTheme({
           margin: '0',
           padding: '0',
           fontFamily: "'Roboto', sans-serif",
+          color: '#292F36',
           background: "url('/background.png')",
           backgroundSize: '100% auto',
           backgroundRepeat: 'no-repeat',
           backgroundColor: '#1A1A1A',
         },
         a: {
-          color: '#333333',
+          color: '#292F36',
+        },
+        h2: {
+          fontFamily: "'M PLUS Rounded 1c', sans-serif",
+          fontSize: "1.2rem"
         }
       }
     },
