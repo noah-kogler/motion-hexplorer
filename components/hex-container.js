@@ -4,6 +4,8 @@ import { nextPosition } from "../tools/geometry";
 import { makeStyles } from "@material-ui/core/styles";
 import useSWR from "swr";
 import fetchJson from "../tools/fetcher";
+import Error from "./error";
+import Loading from "./loading";
 
 const useStyles = makeStyles({
   container: {
@@ -18,10 +20,10 @@ export default function HexContainer({width, height, scale, sideLength, halfHeig
   const { data: lessons, error } = useSWR('/api/lesson', fetchJson);
 
   if (error) {
-    return <div>Failed to load. Error: {error.message}</div>;
+    return <Error showHeader={false} error={error} />;
   }
   if (!lessons) {
-    return <div>loading...</div>;
+    return <Loading showHeader={false} />;
   }
 
   const positions = {};

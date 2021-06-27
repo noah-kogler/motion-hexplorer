@@ -4,27 +4,30 @@ import Header from "../components/header";
 import dynamic from "next/dynamic";
 import useSWR from "swr";
 import fetchJson from "../tools/fetcher";
+import Error from "../components/error";
+import Loading from "../components/loading";
 
 export default function Locations () {
+  const title = 'Location Map';
   const LocationMap = dynamic(
     () => import('../components/location-map'),
     {
-      loading: () => <p>A map is loading</p>,
+      loading: () => <Loading title={title} />,
       ssr: false
     }
   );
 
   const { data: lessons, error } = useSWR('/api/lesson', fetchJson);
   if (error) {
-    return <div>Failed to load. Error: {error.message}</div>;
+    return <Error title={title} error={error} />;
   }
   if (!lessons) {
-    return <div>loading...</div>;
+    return <Loading title={title} showHeader={false} />;
   }
 
   return (
     <>
-      <Header title="Location Map" showLocationMap={false} />
+      <Header title={title} showLocationMap={false} />
       <LocationMap lessons={lessons} />
     </>
   );

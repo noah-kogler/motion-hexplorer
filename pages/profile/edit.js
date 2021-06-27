@@ -8,9 +8,12 @@ import fetchJson from "../../tools/fetcher";
 import { useFormState } from "react-hooks-use-form-state";
 import { useRouter } from "next/router";
 import Content from "../../components/content";
+import Error from "../../components/error";
+import Loading from "../../components/loading";
 
 export default function Edit () {
   const router = useRouter();
+  const title = "Profil bearbeiten";
 
   const { data, error } = useSWR("/api/user", fetchJson);
 
@@ -19,10 +22,10 @@ export default function Edit () {
   const [pushNotifications, setPushNotifications] = useFormState(data?.pushNotifications ?? false);
 
   if (error) {
-    return <div>Failed to load. Error: {error.message}</div>;
+    return <Error title={title} error={error}/>;
   }
   if (!data) {
-    return <div>loading...</div>;
+    return <Loading title={title} />;
   }
 
   function onSubmit(event) {
@@ -33,7 +36,7 @@ export default function Edit () {
 
   return (
     <>
-      <Header title="Profil bearbeiten" />
+      <Header title={title} />
       <Content>
         <form>
           <Box mb={4}>

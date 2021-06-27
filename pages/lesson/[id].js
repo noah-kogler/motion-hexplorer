@@ -9,6 +9,8 @@ import { Box, Button } from "@material-ui/core";
 import Link from 'next/link';
 import { adjustColor, colorForStatus } from "../../tools/color";
 import Content from "../../components/content";
+import Error from "../../components/error";
+import Loading from "../../components/loading";
 
 const useStyles = makeStyles({
   category: {
@@ -49,10 +51,10 @@ export default function Lesson () {
   const classes = useStyles({statusColor: data ? colorForStatus(data.status) : '#7D8E99' });
 
   if (error) {
-    return <div>Failed to load. Error: {error.message}</div>;
+    return <Error title="Training" error={error} />;
   }
   if (!data) {
-    return <div>loading...</div>;
+    return <Loading title="Training" />;
   }
 
   return (

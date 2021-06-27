@@ -6,19 +6,23 @@ import fetchJson from "../tools/fetcher";
 import Image from 'next/image'
 import { Box } from "@material-ui/core";
 import Content from "../components/content";
+import Error from "../components/error";
+import Loading from "../components/loading";
 
 export default function Profile () {
+  const title = 'Profil';
+
   const { data, error } = useSWR("/api/user", fetchJson);
   if (error) {
-    return <div>Failed to load. Error: {error.message}</div>;
+    return <Error title={title} error={error}/>;
   }
   if (!data) {
-    return <div>loading...</div>;
+    return <Loading title={title} />;
   }
 
   return (
     <>
-      <Header title="Profil" showBackButton={true} showEditButton={true} editButtonHref="/profile/edit"/>
+      <Header title={title} showBackButton={true} showEditButton={true} editButtonHref="/profile/edit"/>
       <Content>
         <Box mb={4}>
           <Image src={data.avatarUrl} width={300} height={300} />
