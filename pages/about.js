@@ -4,13 +4,9 @@ import Header from "../components/header";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
-  '@global': {
-    body: {
-      background: '#7D8E99',
-    }
-  },
   container: {
-    margin: '2rem',
+    padding: '2rem',
+    background: 'rgba(255, 255, 255, 0.5)',
   },
 });
 

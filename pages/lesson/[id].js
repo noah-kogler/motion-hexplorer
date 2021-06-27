@@ -9,13 +9,9 @@ import { Box } from "@material-ui/core";
 import Link from 'next/link';
 
 const useStyles = makeStyles({
-  '@global': {
-    body: {
-      background: '#7D8E99',
-    }
-  },
   container: {
-    margin: '2rem',
+    padding: '2rem',
+    background: 'rgba(255, 255, 255, 0.5)',
   },
   label: {
     fontSize: '.8rem',
@@ -51,7 +47,7 @@ export default function Lesson () {
       <Header title={data.title} showBackButton={true} />
       <div className={classes.container}>
         <Box mb={4}>
-          <div className={classes.label}>Kategorie</div>
+          <div className={classes.label}>Einheit</div>
           <div className={classes.value}>{data.category}</div>
         </Box>
         <Box mb={4}>

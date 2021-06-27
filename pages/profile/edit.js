@@ -10,15 +10,13 @@ import { useFormState } from "react-hooks-use-form-state";
 import { useRouter } from "next/router";
 
 const useStyles = makeStyles({
-  '@global': {
-    body: {
-      background: '#7D8E99',
-    }
-  },
   container: {
-    margin: '2rem',
-    maxWidth: '40rem',
+    padding: '2rem',
+    background: 'rgba(255, 255, 255, 0.5)',
   },
+  form: {
+    maxWidth: '40rem',
+  }
 });
 
 export default function Edit () {
@@ -48,7 +46,7 @@ export default function Edit () {
     <>
       <Header title="Profil bearbeiten" showBackButton={false} />
       <div className={classes.container}>
-        <form>
+        <form className={classes.form}>
           <Box mb={4}>
             <Image src={data.avatarUrl} width={300} height={300} />
           </Box>

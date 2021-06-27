@@ -8,13 +8,9 @@ import Image from 'next/image'
 import { Box } from "@material-ui/core";
 
 const useStyles = makeStyles({
-  '@global': {
-    body: {
-      background: '#7D8E99',
-    }
-  },
   container: {
-    margin: '2rem',
+    padding: '2rem',
+    background: 'rgba(255, 255, 255, 0.5)',
   },
   row: {
     marginBottom: '2rem',
