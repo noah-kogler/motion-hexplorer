@@ -14,7 +14,6 @@ import EditIcon from '@material-ui/icons/Edit';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import InfoIcon from '@material-ui/icons/Info';
 import MapIcon from '@material-ui/icons/Map';
-import PersonIcon from '@material-ui/icons/Person';
 import { useRouter } from "next/router";
 import { useRef, useState } from "react";
 import Link from 'next/link';
@@ -48,12 +47,10 @@ const useStyles = makeStyles({
 function Header({
   theme,
   title,
-  showBackButton = false,
-  showEditButton,
+  showBackButton = true,
+  showEditButton = false,
+  showMoreMenu=false,
   editButtonHref,
-  showSkillMap=true,
-  showLocationMap=true,
-  showAbout=true
 }) {
   const classes = useStyles(theme);
   const router = useRouter();
@@ -91,9 +88,12 @@ function Header({
             <EditIcon />
           </IconButton>
         }
-        <IconButton className={classes.button} ref={anchorRef} onClick={handleToggle} title="Menü">
-          <MoreVertIcon />
-        </IconButton>
+        {
+          showMoreMenu &&
+          <IconButton className={classes.button} ref={anchorRef} onClick={handleToggle} title="Menü">
+            <MoreVertIcon />
+          </IconButton>
+        }
       </Box>
       <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition style={{zIndex: 1000}}>
         {({ TransitionProps, placement }) => (
@@ -104,45 +104,26 @@ function Header({
             <Paper>
               <ClickAwayListener onClickAway={handleClose}>
                 <MenuList autoFocusItem={open} id="menu-list-grow">
-                  {
-                    showSkillMap &&
-                    <MenuItem>
-                      <Link href="/" passHref>
-                        <ListItem component="a">
-                          <ListItemIcon>
-                            <PersonIcon/>
-                          </ListItemIcon>
-                          <ListItemText primary="Skill Map"/>
-                        </ListItem>
-                      </Link>
-                    </MenuItem>
-                  }
-                  {
-                    showLocationMap &&
-                    <MenuItem>
-                      <Link href="/locations" passHref>
-                        <ListItem component="a">
-                          <ListItemIcon>
-                            <MapIcon />
-                          </ListItemIcon>
-                          <ListItemText primary="Location Map" />
-                        </ListItem>
-                      </Link>
-                    </MenuItem>
-                  }
-                  {
-                    showAbout &&
-                    <MenuItem>
-                      <Link href="/about" passHref>
-                        <ListItem component="a">
-                          <ListItemIcon>
-                            <InfoIcon />
-                          </ListItemIcon>
-                          <ListItemText primary="Über diese App" />
-                        </ListItem>
-                      </Link>
-                    </MenuItem>
-                  }
+                  <MenuItem>
+                    <Link href="/locations" passHref>
+                      <ListItem component="a">
+                        <ListItemIcon>
+                          <MapIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="Location Map" />
+                      </ListItem>
+                    </Link>
+                  </MenuItem>
+                  <MenuItem>
+                    <Link href="/about" passHref>
+                      <ListItem component="a">
+                        <ListItemIcon>
+                          <InfoIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="Über diese App" />
+                      </ListItem>
+                    </Link>
+                  </MenuItem>
                 </MenuList>
               </ClickAwayListener>
             </Paper>

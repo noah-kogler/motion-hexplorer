@@ -33,7 +33,7 @@ export default function Edit () {
 
   return (
     <>
-      <Header title="Profil bearbeiten" showBackButton={false} />
+      <Header title="Profil bearbeiten" />
       <Content>
         <form>
           <Box mb={4}>

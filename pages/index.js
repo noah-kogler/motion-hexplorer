@@ -15,10 +15,10 @@ export default function Index () {
 
   return (
     <>
-      <Header title="Skill Map" showSkillMap={false} />
+      <Header title="Skill Map" showBackButton={false} showMoreMenu={true} />
       <div>
         {showSkillMap ? <SkillMap /> : <LoadingIndicator itemName="Skill Map" />}
       </div>
     </>
   );
-};
+}
