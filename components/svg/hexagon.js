@@ -47,7 +47,7 @@ export default function HexagonSvg({
     status,
     category,
     title,
-    image = '/placeholder.svg',
+    image,
     isAvatar = false
 }) {
   let color = isAvatar ? '#000000' : colorForStatus(status);
