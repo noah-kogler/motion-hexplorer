@@ -13,26 +13,20 @@ const useStyles = makeStyles({
     height: props => (props.pressed ? props.height - 4 : props.height) + 'px',
     transition: 'width .25s, height .25s, top .25s, left .25s',
     cursor: 'pointer',
+    '&:hover': {
+      filter: 'brightness(75%)',
+    }
   },
 });
 
 export default function Hexagon ({ sideLength, center, onActivate, moving, link, ...svgProps }) {
   const router = useRouter();
   const [pressed, setPressed] = useState(false);
-  const [hover, setHover] = useState(false);
 
   const halfHeight = hexHalfHeight(sideLength);
   const width = 2 * sideLength;
   const height = 2 * halfHeight;
   const classes = useStyles({width, height, top: center.y - halfHeight, left: center.x - sideLength, pressed});
-
-  function onMouseEnter () {
-    setHover(true);
-  }
-
-  function onMouseLeave () {
-    setHover(false);
-  }
 
   function onMouseDown (event) {
     if (event.button === 0) {
@@ -76,14 +70,11 @@ export default function Hexagon ({ sideLength, center, onActivate, moving, link,
       onTouchStart={onTouchStart}
       onTouchEnd={onTouchEnd}
       onTouchMove={onTouchMove}
-      onTouchCancel={onTouchCancel}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}>
+      onTouchCancel={onTouchCancel}>
       <HexagonSvg
         center={{x: sideLength, y: halfHeight}}
         containerSideLength={sideLength}
         shadow={!pressed}
-        hover={hover}
         {...svgProps} />
     </div>
   );

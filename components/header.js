@@ -23,10 +23,11 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles({
   container: {
     height: props => props.headerHeight,
-    borderBottom: '2px solid #333333',
     boxSizing: 'border-box',
     background: 'rgba(255, 255, 255, 0.75)',
-    boxShadow: '0 0 15px #000000',
+    boxShadow: '0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12)',
+    position: "relative",
+    zIndex: '10',
   },
   title: {
     padding: '1rem',

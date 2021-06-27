@@ -29,7 +29,7 @@ export const lessons = [
     position: 'topRight',
     status: 'todo',
     category: 'Schlag 1',
-    title: 'Kettenfauststoß',
+    title: 'Kettenfaust Stoß',
     image: '/content/s1.svg',
     videoId: 'C4zFbCJTsE4',
     tips: '- Beachten der Details\n' +

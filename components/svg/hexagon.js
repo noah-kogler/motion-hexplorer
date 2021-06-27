@@ -7,17 +7,18 @@ const useStyles = makeStyles({
     width: '100%',
     height: '100%',
   },
+  avatarMask: {
+    fill: 'white',
+    stroke: 'black',
+    strokeWidth: 4,
+  },
   polygon: {
-    stroke: '#333333',
-    transition: 'stroke .25s',
-    strokeWidth: 2,
-    fill: props => props.isAvatar ? '' : (props.hover ? adjustColor(props.color, -20) : props.color),
-    filter: props => props.shadow ? 'drop-shadow(2px 2px 2px rgba(0, 0, 0, .7))' : 'none',
+    stroke: props => props.isAvatar ? '#292F36' : adjustColor(props.color, -30),
+    strokeWidth: 4,
+    fill: props => props.isAvatar ? '' : props.color,
+    filter: props => props.shadow ? 'drop-shadow(2px 2px 2px rgba(0, 0, 0, .2))' : 'none',
   },
-  avatar: {
-    filter: props => props.hover ? 'brightness(75%)' : 'none',
-  },
-  textContainer: {
+  bottomTextContainer: {
     margin: '0 3rem',
     display: 'flex',
     height: '100%',
@@ -25,16 +26,16 @@ const useStyles = makeStyles({
   topText: {
     fontWeight: 'bold',
     fontSize: '.6rem',
-    alignSelf: 'flex-start',
     textAlign: 'center',
     width: '100%',
-    color: props => adjustColor(props.color, -70),
+    color: props => adjustColor(props.color, -60),
   },
   bottomText: {
     fontSize: '.8rem',
     alignSelf: 'flex-end',
     textAlign: 'center',
     width: '100%',
+    fontFamily: "'M PLUS Rounded 1c', sans-serif",
   },
 });
 
@@ -43,7 +44,6 @@ export default function HexagonSvg({
     containerSideLength,
     scale,
     shadow,
-    hover,
     status,
     category,
     title,
@@ -51,7 +51,7 @@ export default function HexagonSvg({
     isAvatar = false
 }) {
   let color = isAvatar ? '#000000' : colorForStatus(status);
-  const classes = useStyles({color, shadow, hover, isAvatar});
+  const classes = useStyles({color, shadow, isAvatar});
 
   const padding = containerSideLength / 10;
   const sideLength = containerSideLength - padding;
@@ -67,17 +67,16 @@ export default function HexagonSvg({
     { x: center.x - sideLength, y: center.y }, // centerLeft
   ];
 
-  let headerY, footerY, imageX, imageY, imageHeight, showDetails;
+  let footerY, imageX, imageY, imageHeight, showDetails;
   if (scale >= 1) {
-    headerY = '10%';
     footerY = '65%';
-    imageX = '16%';
-    imageY = '18%';
-    imageHeight = '60%';
+    imageX = '32%';
+    imageY = '20%';
+    imageHeight = '50%';
     showDetails = true;
   } else {
-    imageX = '8%';
-    imageY = '8%';
+    imageX = '20%';
+    imageY = '10%';
     imageHeight = '75%';
     showDetails = false;
   }
@@ -96,12 +95,10 @@ export default function HexagonSvg({
             <>
               <mask id="avatar-mask">
                 <polygon
-                  className={classes.polygon}
                   points={points.map(({x, y}) => x + ',' + y).join(' ')}
-                  fill="white" />
+                  className={classes.avatarMask}  />
               </mask>
               <image
-                className={classes.avatar}
                 x="0%"
                 y="0%"
                 width="100%"
@@ -113,10 +110,8 @@ export default function HexagonSvg({
         : (
             <>
               { showDetails && (
-                  <foreignObject y={headerY} width="100%" height="10%">
-                    <div className={classes.textContainer} xmlns="http://www.w3.org/1999/xhtml">
-                      <div className={classes.topText}>{category}</div>
-                    </div>
+                  <foreignObject x="-35%" y="32%" width={sideLength} height="10%" transform={`rotate(300)`}>
+                    <div className={classes.topText}>{category}</div>
                   </foreignObject>
                 )
               }
@@ -127,7 +122,7 @@ export default function HexagonSvg({
                 xlinkHref={image}/>
               { showDetails && (
                   <foreignObject y={footerY} width="100%" height="25%">
-                    <div className={classes.textContainer} xmlns="http://www.w3.org/1999/xhtml">
+                    <div className={classes.bottomTextContainer} xmlns="http://www.w3.org/1999/xhtml">
                       <div className={classes.bottomText}>{title}</div>
                     </div>
                   </foreignObject>

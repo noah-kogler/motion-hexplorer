@@ -25,6 +25,10 @@ export const defaultTheme = createMuiTheme({
           margin: '0',
           padding: '0',
           fontFamily: "'Roboto', sans-serif",
+          background: "url('/background.png')",
+          backgroundSize: '100% auto',
+          backgroundRepeat: 'no-repeat',
+          backgroundColor: '#1A1A1A',
         },
         a: {
           color: '#333333',
