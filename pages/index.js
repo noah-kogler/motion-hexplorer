@@ -2,8 +2,8 @@
 
 import SkillMap from "../components/skill-map";
 import { useEffect, useState } from "react";
-import LoadingIndicator from "../components/loading-indicator";
 import Header from "../components/header";
+import Loading from "../components/loading";
 
 export default function Index () {
   const [showSkillMap, setShowSkillMap] = useState(false);
@@ -17,7 +17,7 @@ export default function Index () {
     <>
       <Header title="Skill Map" showBackButton={false} showMoreMenu={true} />
       <div>
-        {showSkillMap ? <SkillMap /> : <LoadingIndicator itemName="Skill Map" />}
+        {showSkillMap ? <SkillMap /> : <Loading showHeader={false} />}
       </div>
     </>
   );

@@ -12,7 +12,7 @@ export default function Locations () {
   const LocationMap = dynamic(
     () => import('../components/location-map'),
     {
-      loading: () => <Loading title={title} />,
+      loading: () => <Loading title={title} showHeader={false} />,
       ssr: false
     }
   );
@@ -22,7 +22,7 @@ export default function Locations () {
     return <Error title={title} error={error} />;
   }
   if (!lessons) {
-    return <Loading title={title} showHeader={false} />;
+    return <Loading title={title} />;
   }
 
   return (

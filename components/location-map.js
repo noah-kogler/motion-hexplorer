@@ -10,6 +10,7 @@ import Link from 'next/link';
 import { useEffect, useRef } from "react";
 import { withTheme } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import Loading from "./loading";
 
 L.Icon.Default.imagePath='icons/leaflet/';
 
@@ -34,7 +35,7 @@ function LocationMap({theme, lessons}) {
   const router = useRouter();
   const {width, height} = useContentAreaSize(theme);
   if (width === 0 && height === 0) {
-    return <div>loading...</div>
+    return <Loading showHeader={false} />;
   }
 
   const salzburg = [47.8095, 13.0550];
