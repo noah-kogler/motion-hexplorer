@@ -7,10 +7,13 @@ export const lessons = [
     title: 'Siu Nim Tao',
     image: '/content/k1.svg',
     videoId: '7Zc2XGLTQ_k',
-    tips: 'Siu Nim Tau / Die kleine Idee - Form aus dem Wing Tsun Kung Fu\n' +
-      '- Beachten der erlernten Details\n' +
-      '- Langsames und korrektes Ausführen\n' +
-      '- Regelmässiges Feedback vom Lehrer einholen'
+    tips: [
+      'Siu Nim Tau / Die kleine Idee - Form aus dem Wing Tsun Kung Fu',
+      'Beachten der erlernten Details',
+      'Langsames und korrektes Ausführen',
+      'Regelmässiges Feedback vom Lehrer einholen',
+    ],
+    target: '10 Trainings selbständig durchführen',
   },
   {
     id: 'p1',
@@ -20,9 +23,12 @@ export const lessons = [
     title: 'Keilstoß',
     image: '/content/p1.svg',
     videoId: 'FkTTwuS1y04',
-    tips: '- Details der Grundposition beachten\n' +
-      '- Keilstoss aus dem Körper (Knie, Becken, Brustbein)\n' +
-      '- Beide Fäuste gehen nach vorne beim Keilstoss'
+    tips: [
+      'Details der Grundposition beachten',
+      'Keilstoss aus dem Körper (Knie, Becken, Brustbein)',
+      'Beide Fäuste gehen nach vorne beim Keilstoss',
+    ],
+    target: '10 Trainings selbständig durchführen',
   },
   {
     id: 's1',
@@ -32,7 +38,8 @@ export const lessons = [
     title: 'Kettenfaust Stoß',
     image: '/content/s1.svg',
     videoId: 'C4zFbCJTsE4',
-    tips: '- Hintere (Schützende) Faust schließt mit Kinn ab'
+    tips: ['Hintere (Schützende) Faust schließt mit Kinn ab'],
+    target: '10 Trainings selbständig durchführen',
   },
   {
     id: 'i1',
@@ -42,8 +49,11 @@ export const lessons = [
     title: 'Ellbogenschlag horizontal',
     image: '/content/i1.svg',
     videoId: '4_hCWML7YZA',
-    tips: '- Präzisse und Dynamisch üben\n' +
-     '- Struktur und Ausrichtung behalten',
+    tips: [
+      'Präzisse und Dynamisch üben',
+      'Struktur und Ausrichtung behalten',
+    ],
+    target: '10 Trainings selbständig durchführen',
   },
   {
     id: 'i2',
@@ -53,8 +63,24 @@ export const lessons = [
     title: 'Ellbogenschlag vertikal',
     image: '/content/i2.svg',
     videoId: 'qprpRb5lceU',
-    tips: '- Struktur bei Schlag bewahren',
-    location: {name: 'Salzburg Aigen', coords: [47.7885764, 13.0787463]},
+    tips: ['Struktur bei Schlag bewahren'],
+    appointments: [
+      {
+        date: '2021-08-01 16:00',
+        location: {name: 'Salzburg Aigen', coords: [47.7885764, 13.0787463]},
+      }
+    ],
+    doneAppointments: [
+      {
+        date: '2021-06-01 16:00',
+        location: {name: 'Salzburg Aigen', coords: [47.7885764, 13.0787463]},
+      },
+      {
+        date: '2021-06-15 16:00',
+        location: {name: 'Salzburg Aigen', coords: [47.7885764, 13.0787463]},
+      }
+    ],
+    target: 'Drei gemeinsame Trainingstermine besuchen',
   },
   {
     id: 'i3',
@@ -64,7 +90,13 @@ export const lessons = [
     title: 'Ellbogenschlag unterstützt',
     image: '/content/i3.svg',
     videoId: '70YWIrVW4Dc',
-    location: {name: 'Bräustübl', coords: [47.8057092, 13.0333467]},
+    appointments: [
+      {
+        date: '2021-08-08 17:00',
+        location: {name: 'Bräustübl', coords: [47.8057092, 13.0333467]},
+      }
+    ],
+    target: 'Einen gemeinsamen Trainingstermin besuchen',
   },
   {
     id: 'i4',
@@ -74,6 +106,7 @@ export const lessons = [
     title: 'Kniestoß mit Halten',
     image: '/content/i4.svg',
     videoId: 'ezIWJRIVk80',
+    target: '10 Trainings selbständig durchführen',
   },
   {
     id: 't1',
@@ -83,9 +116,12 @@ export const lessons = [
     title: 'Vorwärtstritt stehend',
     image: '/content/t1.svg',
     videoId: 'zE8mL_-6gYo',
-    tips: '- Knie heben und treten\n'
-      + '- Zehen zeigen nach Außen\n'
-      + '- Deckung immer vor Körper halten',
+    tips: [
+      'Knie heben und treten',
+      'Zehen zeigen nach Außen',
+      'Deckung immer vor Körper halten',
+    ],
+    target: '10 Trainings selbständig durchführen',
   },
   {
     id: 'd1',
@@ -95,8 +131,7 @@ export const lessons = [
     title: 'Tritt zu Ellbogenstoß',
     image: '/content/d1.svg',
     videoId: 'J1nIVyNs5Tw',
-    tips: 'Kombination 1:\n'
-      + '- Vorwärtstritt\n'
-      + '- Kettenfauststoss (3-5 Schläge)',
+    tips: ['Kombination: Vorwärtstritt und Kettenfauststoss (3-5 Schläge)'],
+    target: '10 Trainings selbständig durchführen',
   },
 ];

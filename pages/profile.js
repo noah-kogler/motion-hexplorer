@@ -18,7 +18,7 @@ export default function Profile () {
 
   return (
     <>
-      <Header title="Profile" showBackButton={true} showEditButton={true} editButtonHref="/profile/edit"/>
+      <Header title="Profil" showBackButton={true} showEditButton={true} editButtonHref="/profile/edit"/>
       <Content>
         <Box mb={4}>
           <Image src={data.avatarUrl} width={300} height={300} />

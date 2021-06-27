@@ -5,15 +5,12 @@ import { makeStyles } from "@material-ui/core/styles";
 import useSWR from "swr";
 import fetchJson from "../../tools/fetcher";
 import { useRouter } from "next/router";
-import { Box } from "@material-ui/core";
+import { Box, Button } from "@material-ui/core";
 import Link from 'next/link';
 import { adjustColor, colorForStatus } from "../../tools/color";
 import Content from "../../components/content";
 
 const useStyles = makeStyles({
-  pre: {
-    whiteSpace: 'pre',
-  },
   category: {
     fontWeight: 'bold',
   },
@@ -83,28 +80,63 @@ export default function Lesson () {
         {
           data.tips &&
           <Box mb={4}>
-            <div className={classes.pre}>{data.tips}</div>
+            <ul>
+              { data.tips.map(tip => <li>{tip}</li>) }
+            </ul>
           </Box>
         }
+        <h2>Ziel</h2>
+        <Box mb={4}>
+          {data.target}
+        </Box>
         {
-          data.location &&
+          data.doneAppointments &&
           <>
-            <h2>Location</h2>
+            <h2>Absolvierte Termine</h2>
             <Box mb={4}>
-              <div>
-                <Link
-                  href={{
-                    pathname: '/locations',
-                    query: { markLessonId: data.id },
-                  }}
-                >
-                  {data.location.name}
-                </Link>
-              </div>
+              <ul>
+              {
+                data.doneAppointments.map(appointment =>
+                  <li>
+                    {appointment.date} @ {appointment.location.name}
+                  </li>
+                )
+              }
+              </ul>
             </Box>
           </>
+        }
+        {
+          data.appointments &&
+          <>
+            <h2>Nächste Termine</h2>
+            <Box mb={4}>
+              <ul>
+              {
+                data.appointments.map(appointment =>
+                  <li>
+                    <Link
+                      href={{
+                        pathname: '/locations',
+                        query: { markLessonId: data.id },
+                      }}
+                    >
+                      <a>{appointment.date} @ {appointment.location.name}</a>
+                    </Link>
+                  </li>
+                )
+              }
+              </ul>
+            </Box>
+          </>
+        }
+        {
+          data.status === 'todo' &&
+          <Box mb={4}>
+            <Button variant="contained" color="primary">Starten</Button>
+          </Box>
         }
       </Content>
     </>
   );
-};
+}
